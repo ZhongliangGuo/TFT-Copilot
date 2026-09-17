@@ -1,0 +1,912 @@
+[
+ {
+  "name": "不倒翁",
+  "apiName": "DA_RolyPolysUpgrade18",
+  "desc": "在@Upgrade_WaitTime@秒后，每有1名存活的友军，获得1次刷新。"
+ },
+ {
+  "name": "中央大道",
+  "apiName": "DA_MiddlePath18_Upgrade",
+  "desc": "刷新你的商店，使其充满2星3费弈子。"
+ },
+ {
+  "name": "仙灵的怜悯",
+  "apiName": "DA_BeggarsWisp18_Upgrade",
+  "desc": "本次刷新未能使你在自然奇境中寻找到【自然仙灵】。获得@GoldUpgrade@金币。"
+ },
+ {
+  "name": "以命为注",
+  "apiName": "DA_18_LifeDebt_Upgrade",
+  "desc": "每失去@MissingHealthAmount@玩家生命值，获得@GoldPerMissingHealth@金币。然后治疗@UpgradeHealing@生命值。"
+ },
+ {
+  "name": "以物易物",
+  "apiName": "DA_Barter18_Upgrade",
+  "desc": "在本回合内，你下次出售的弈子将以@SellMultiplierUpgrade*100@%金币卖出。"
+ },
+ {
+  "name": "低阶变形术",
+  "apiName": "DA_18_MinorPolymorph",
+  "desc": "你拥有的1个1费弈子永久变形为1个2费。"
+ },
+ {
+  "name": "余震",
+  "apiName": "DA_18_AfterShock_Upgrade",
+  "desc": "在@ActivationDelay@和@SecondActivationDelayUpgrade@秒后，晕眩所有敌人造成@StunDurationUpgrade@秒。"
+ },
+ {
+  "name": "侩子手的悔恨",
+  "apiName": "DA_KillersRegret18",
+  "desc": "你最先阵亡的@NumUnits@个弈子会将其击杀者晕眩@StunDuration@秒。"
+ },
+ {
+  "name": "借来的装备",
+  "apiName": "DA_BorrowedGear18",
+  "desc": "1个弈子获得1件临时推荐装备。"
+ },
+ {
+  "name": "倾盆大雨",
+  "apiName": "DA_Downpour18_Prismatic",
+  "desc": "你的队伍获得@Prismatic_ManaRegen@法力回复。"
+ },
+ {
+  "name": "元气满满",
+  "apiName": "DA_18_ProlificPower_Upgrade",
+  "desc": "你的弈子们获得@UpgradeADAP*100@%物理加成和法术加成。"
+ },
+ {
+  "name": "光明化",
+  "apiName": "DA_18_Radiantize_Upgrade",
+  "desc": "在@DelayUpgrade@秒后，@NumItemsUpgrade@件被携带着的随机装备暂时变为光明版。"
+ },
+ {
+  "name": "免费刷新术",
+  "apiName": "DA_18_Freeroller_Upgrade",
+  "desc": "获得@Upgrade_Rerolls@次刷新。"
+ },
+ {
+  "name": "全1费商店",
+  "apiName": "DA_18_AllOnes_Upgrade",
+  "desc": "刷新你的商店，使其充满1费弈子。获得@AllOnesUpgradeGold@金币。"
+ },
+ {
+  "name": "全2费商店",
+  "apiName": "DA_18_AllTwos_Upgrade",
+  "desc": "刷新你的商店，使其充满2费弈子。获得@AllTwosUpgradeGold@金币。"
+ },
+ {
+  "name": "全3费商店",
+  "apiName": "DA_18_AllThrees",
+  "desc": "刷新你的商店，使其充满3费弈子。"
+ },
+ {
+  "name": "全4费商店",
+  "apiName": "DA_18_AllFours_Upgrade",
+  "desc": "刷新你的商店，使其充满4费弈子。获得@AllFoursUpgradeGold@金币。"
+ },
+ {
+  "name": "全5费商店",
+  "apiName": "DA_18_AllFives",
+  "desc": "刷新你的商店，使其充满5费弈子。"
+ },
+ {
+  "name": "再生",
+  "apiName": "DA_Regeneration18_Upgrade",
+  "desc": "你的队伍每秒治疗@HealPerSecondUpgrade*100@%最大生命值。"
+ },
+ {
+  "name": "决死卫兵",
+  "apiName": "TFT16_XerathZap_SacrificialGuard",
+  "desc": "下一场战斗：【阿兹尔】的卫兵们阵亡时会爆炸，在一个半径2格的区域内造成@ExplosionDamage@魔法伤害。"
+ },
+ {
+  "name": "加速",
+  "apiName": "DA_Quicken18",
+  "desc": "施放技能时，你的弈子们获得@AttackSpeedGain*100@%攻击速度，持续@Duration@秒。"
+ },
+ {
+  "name": "变形术",
+  "apiName": "DA_18_Polymorph_Upgrade",
+  "desc": "你拥有的那个星级最高的2费弈子永久变形为1个3费。"
+ },
+ {
+  "name": "后排之星",
+  "apiName": "DA_18_BackrowStar",
+  "desc": "1个随机后排弈子获得@ASMultiplier*100@%攻击速度，持续@ASDuration@秒。"
+ },
+ {
+  "name": "否定仪式",
+  "apiName": "TFT16_XerathZap_EmperorsProsperity",
+  "desc": "下一场战斗：【恕瑞玛】弈子们获得@DamageAmp*100@%伤害增幅和控制免疫。"
+ },
+ {
+  "name": "命定寻获",
+  "apiName": "TFT16_XerathZap_FatefulFind",
+  "desc": "投掷@DiceAmount@个骰子。获得相当于点数总和的金币。"
+ },
+ {
+  "name": "地动山摇",
+  "apiName": "DA_18_Tremors",
+  "desc": "每@StunInterval@秒，晕眩敌人@StunDuration@秒。"
+ },
+ {
+  "name": "坚硬木材",
+  "apiName": "DA_Ironwood18_Upgrade",
+  "desc": "敌人攻击你生命值最高的那个弈子时，造成的伤害降低@DamageReduction_Upgrade*100@%。"
+ },
+ {
+  "name": "壁垒",
+  "apiName": "DA_Bulwark18",
+  "desc": "你的【坦克】在生命值降至@HealthThreshold*100@%时，会获得@ShieldPercentHealth*100@%最大生命值护盾。"
+ },
+ {
+  "name": "复仇",
+  "apiName": "DA_Revenge18",
+  "desc": "每当1名友军阵亡时，你的弈子们获得@DamageAmp*100@%可叠加的伤害增幅。"
+ },
+ {
+  "name": "复制同伴",
+  "apiName": "DA_CloneCompanion18_Prismatic",
+  "desc": "复制你伤害最高的那个弈子。复制体造成@CloneDamageMultiplierPrismatic*100@%伤害。"
+ },
+ {
+  "name": "多样化",
+  "apiName": "DA_DiversifiedUpgrade18",
+  "desc": "每有1个已激活的非唯一羁绊，你的队伍获得@AddedHealthUpgrade@生命值。"
+ },
+ {
+  "name": "大器晚成",
+  "apiName": "DA_LateBloomer18_Prismatic",
+  "desc": "一队(包含@PrismaticNumUnits@个)临时的@PrismaticStarLevel@星@UnitTier@费弈子加入你的队伍。"
+ },
+ {
+  "name": "大爆炸",
+  "apiName": "DA_BigBoom18",
+  "desc": "第一名阵亡的友军会产生爆炸，造成@maxHealthExplosionDamage*100@%最大生命值魔法伤害。"
+ },
+ {
+  "name": "大腕",
+  "apiName": "DA_BigGuns18",
+  "desc": "获得2个随机1星4费弈子。"
+ },
+ {
+  "name": "奇境宗师",
+  "apiName": "DA_Grandmaster18",
+  "desc": "获得1个随机2星5费弈子。"
+ },
+ {
+  "name": "孤身站场",
+  "apiName": "DA_StandAlone18_Upgrade",
+  "desc": "独自处于所在排的弈子们获得@Health_Upgrade*100@%生命值和@DamageAmp_Upgrade*100@%伤害增幅。"
+ },
+ {
+  "name": "学徒",
+  "apiName": "DA_Apprentice18",
+  "desc": "获得1个随机2星1费弈子。"
+ },
+ {
+  "name": "审判",
+  "apiName": "TFT16_XerathZap_Judgement",
+  "desc": "下一场战斗：如果你赢了，获得@GoldOnWin@金币；如果你输了，则获得@XPOnLose@经验值。 "
+ },
+ {
+  "name": "审判之天平",
+  "apiName": "TFT16_XerathZap_ScaleOfJudgement",
+  "desc": "下一场战斗：如果你赢了，则获得@GoldOnWin@金币；如果你输了，则获得@HPOnLose@玩家生命值。"
+ },
+ {
+  "name": "富魔之壤",
+  "apiName": "DA_ManaRichSoil18",
+  "desc": "你的【术师】最大法力值减少@MaxManaMultiplier*100@%"
+ },
+ {
+  "name": "对影成三",
+  "apiName": "DA_ThreeMe18_Upgrade",
+  "desc": "获得1个随机2星3费弈子。"
+ },
+ {
+  "name": "射手印记",
+  "apiName": "DA_MarksmensMarks18_Upgrade",
+  "desc": "你的【射手】有@DoubleAttackChance_Upgrade*100@%几率双重攻击。"
+ },
+ {
+  "name": "射手狂风",
+  "apiName": "DA_MarksmensGale18",
+  "desc": "你的【射手】在攻击时获得@AttackSpeed*100@%可叠加的攻击速度。"
+ },
+ {
+  "name": "小人国",
+  "apiName": "DA_18_FieldofMice_Upgrade",
+  "desc": "上回合每登场1个不同的1费弈子，获得1个【微型英雄复制器】和1金币。"
+ },
+ {
+  "name": "小玩具包",
+  "apiName": "DA_DoodadBag18",
+  "desc": "获得@Boost2_Num@个消耗品，其能提供永久的护甲与魔抗或生命值。"
+ },
+ {
+  "name": "小玩具罐",
+  "apiName": "DA_DoodadJar18",
+  "desc": "获得@Boost1_Num@个消耗品，其能提供永久的护甲与魔抗或生命值。"
+ },
+ {
+  "name": "小玩具袋",
+  "apiName": "DA_DoodadSack18",
+  "desc": "获得@Boost3_Num@个消耗品，其能提供永久的护甲与魔抗或生命值。"
+ },
+ {
+  "name": "小装置包",
+  "apiName": "DA_ThingamajigBag18",
+  "desc": "获得@Boost2_Num@个消耗品，其能提供永久的法术加成或法力回复。"
+ },
+ {
+  "name": "小装置罐",
+  "apiName": "DA_ThingamajigJar18_Upgrade",
+  "desc": "获得@Upgrade_Boost1_Num@个消耗品，其能提供永久的法术加成或法力回复。"
+ },
+ {
+  "name": "小装置袋",
+  "apiName": "DA_ThingamajigSack18",
+  "desc": "获得@Boost3_Num@个消耗品，其能提供永久的法术加成或法力回复。"
+ },
+ {
+  "name": "小贩",
+  "apiName": "DA_Peddler18",
+  "desc": "开启1个随机装备商店。随机装备的费用在0到@TooltipMaxCostOfItem@金币之间。"
+ },
+ {
+  "name": "小饰品包",
+  "apiName": "DA_KnickKnackBag18",
+  "desc": "获得@Boost2_Num@个消耗品，其能提供永久的物理加成或攻击速度。"
+ },
+ {
+  "name": "小饰品罐",
+  "apiName": "DA_KnickKnackJar18_Upgrade",
+  "desc": "获得@Upgrade_Boost1_Num@个消耗品，其能提供永久的物理加成或攻击速度。"
+ },
+ {
+  "name": "小饰品袋",
+  "apiName": "DA_KnickKnackSack18",
+  "desc": "获得@Boost3_Num@个消耗品，其能提供永久的物理加成或攻击速度。"
+ },
+ {
+  "name": "屏障",
+  "apiName": "DA_Barrier18",
+  "desc": "友军获得@Shield@护盾值，在@Duration@秒内持续衰减。"
+ },
+ {
+  "name": "屠戮狂暴",
+  "apiName": "DA_18_KillingFrenzy",
+  "desc": "【战士】会处决生命值低于@ExecuteThreshold@%的目标。在击杀时，他们获得@OnKillAtkSpdAmount*100@%攻击速度。"
+ },
+ {
+  "name": "崩落之沙",
+  "apiName": "TFT16_XerathZap_CrumblingSands",
+  "desc": "下一场战斗：对所有敌人造成@StunDuration@秒晕眩。"
+ },
+ {
+  "name": "巨人光环",
+  "apiName": "DA_GiantsAura18_Upgrade",
+  "desc": "你生命值最高的那名友军，每秒在一片区域内造成@Damage_Upgrade*100@%最大生命值伤害。"
+ },
+ {
+  "name": "巨型增长",
+  "apiName": "DA_18_GiantGrowth",
+  "desc": "你生命值最高的那个单位成长，获得@HPGain@生命值。"
+ },
+ {
+  "name": "巨大化",
+  "apiName": "DA_Hugify18",
+  "desc": "你生命值最高的那个单位成长，获得@Health@生命值。"
+ },
+ {
+  "name": "幸运7",
+  "apiName": "DA_Lucky718",
+  "desc": "获得@NumRerolls@次商店刷新。"
+ },
+ {
+  "name": "幻影手套",
+  "apiName": "DA_PhantomGloves18",
+  "desc": "获得1个临时的【窃贼手套】。"
+ },
+ {
+  "name": "幻影护甲",
+  "apiName": "DA_PhantomArmor18",
+  "desc": "获得1个临时的【狂徒铠甲】。"
+ },
+ {
+  "name": "幻影浪花",
+  "apiName": "DA_PhantomSplash18",
+  "desc": "战斗开始时：至多有@NumTraitsActivated@个未激活的羁绊会以最低等级激活。"
+ },
+ {
+  "name": "幻影纹章",
+  "apiName": "DA_PhantomEmblemUpgrade18",
+  "desc": "获得1个你层级最高羁绊的临时的纹章。"
+ },
+ {
+  "name": "幻影背心",
+  "apiName": "DA_PhantomVest18_Upgrade",
+  "desc": "获得1件临时的【黎明圣盾】。"
+ },
+ {
+  "name": "庆功宴",
+  "apiName": "DA_18_PaydayUpgrade",
+  "desc": "每有1个己方弈子在战斗中存活，获得@UpgradeGoldPerSurvivor@金币。"
+ },
+ {
+  "name": "弃船",
+  "apiName": "DA_AbandonShip18",
+  "desc": "出售你棋盘上和备战席的所有弈子，获得@Gold@金币和@Rerolls@次刷新。"
+ },
+ {
+  "name": "强化激素",
+  "apiName": "DA_BoosterShot18_Upgrade",
+  "desc": "至多@UpgradeNumChampsToStarUp@个1星弈子会在战斗期间暂时升星。"
+ },
+ {
+  "name": "忠实追随者",
+  "apiName": "TFT16_XerathZap_TheWorld",
+  "desc": "获得每个已解锁的4费弈子的一个1星版本。"
+ },
+ {
+  "name": "恋人",
+  "apiName": "TFT16_XerathZap_TheLovers",
+  "desc": "获得拥有共用羁绊的1个5费弈子和1个2星2费弈子。"
+ },
+ {
+  "name": "慢速学习",
+  "apiName": "DA_SlowStudy18",
+  "desc": "在@WaitTime@秒后，每有1名存活的友军，获得@XPAdded@经验值。"
+ },
+ {
+  "name": "战车",
+  "apiName": "TFT16_XerathZap_TheChariot",
+  "desc": "这个回合，刷新花费@RerollCost@金币，购买经验值花费@XPCost@金币。"
+ },
+ {
+  "name": "战马降临",
+  "apiName": "DA_TigersVisit18_Wisp",
+  "desc": "本场对战获得【野兽之灵】的【战马】增益。"
+ },
+ {
+  "name": "打捞术",
+  "apiName": "DA_SalvagerUpgrade18",
+  "desc": "你备战席的任何弈子都会被移除装备，且这些装备会被拆解。获得@GoldGainUpgrade@金币。"
+ },
+ {
+  "name": "找个朋友",
+  "apiName": "DA_FoundFriend18_Upgrade",
+  "desc": "获得1个携带着1个【日炎斗篷】的【训练假人】。"
+ },
+ {
+  "name": "折磨",
+  "apiName": "DA_18_Infliction_Upgrade",
+  "desc": "对所有敌人施加持续@DurationUpgrade@秒的减速、灼烧、魔抗击碎与护甲击碎效果。"
+ },
+ {
+  "name": "抛硬币",
+  "apiName": "DA_CoinFlip18_Upgrade",
+  "desc": "抛掷@UpgradeNumCoinsFlipped@枚硬币，如果硬币正面朝上，获得@GoldIfHeads@金币。"
+ },
+ {
+  "name": "抵抗",
+  "apiName": "DA_18_Resistant",
+  "desc": "【坦克】使即将到来的每段伤害减少@FlatDmgBlock@。"
+ },
+ {
+  "name": "招财猫",
+  "apiName": "DA_GoldenGoose18",
+  "desc": "你造成伤害最高的那名友军，每造成@EarnGoldForEveryNDamage@伤害，获得@GoldEarned@金币。"
+ },
+ {
+  "name": "拼一把大的！",
+  "apiName": "DA_GreaterChaos18",
+  "desc": "随机施放@NumCharms@个【自然仙灵】。"
+ },
+ {
+  "name": "拼一把小的！",
+  "apiName": "DA_LesserChaos18_Upgrade",
+  "desc": "随机施放1个价值在@UpgradeGoldLowerBound@或以上金币的【自然仙灵】。"
+ },
+ {
+  "name": "持久奥能",
+  "apiName": "TFT16_XerathZap_PersistentArcanery",
+  "desc": "下一场战斗：【泽拉斯】获得@ManaRegen@法力回复并且他的技能发射额外的@ExtraBlasts@个震波。"
+ },
+ {
+  "name": "掷骰子",
+  "apiName": "DA_DieRoll18_Upgrade",
+  "desc": "投掷2个六面体骰子。获得相当于结果点数的金币。"
+ },
+ {
+  "name": "搜查队",
+  "apiName": "DA_SearchParty18_Upgrade",
+  "desc": "在本回合内，你每次刷新商店都会出现1个4费弈子，直到你购买其中一名为止。"
+ },
+ {
+  "name": "新手村",
+  "apiName": "DA_StartingTown18_Upgrade",
+  "desc": "刷新你的商店，使其充满2星1费弈子。"
+ },
+ {
+  "name": "旅行者",
+  "apiName": "DA_Journeyman18",
+  "desc": "获得1个随机2星2费弈子。"
+ },
+ {
+  "name": "日炎巫术",
+  "apiName": "DA_18_SunfireSorcery",
+  "desc": "对敌人施加持续@Duration@秒的灼烧和重伤效果。"
+ },
+ {
+  "name": "日蚀之礼",
+  "apiName": "DA_SolarGift18",
+  "desc": "获得1个【蕾欧娜】、1个【瑟庄妮】和1个【凯尔】。"
+ },
+ {
+  "name": "易燃物",
+  "apiName": "DA_Combust18",
+  "desc": "你的弈子们在阵亡时产生爆炸，造成@maxHealthExplosionDamage*100@%最大生命值魔法伤害。"
+ },
+ {
+  "name": "星落",
+  "apiName": "DA_18_Starfall_Upgrade",
+  "desc": "这回合你前@UpgradeShopLimit@次刷新商店时，费用最低的那个弈子会变为2星。"
+ },
+ {
+  "name": "月亮",
+  "apiName": "TFT16_XerathZap_TheMoon",
+  "desc": "使你的5费弈子刷新概率永久提升@IncreasedOddsPercent@%。"
+ },
+ {
+  "name": "月光仪式",
+  "apiName": "DA_MoonlightRitual18",
+  "desc": "在战斗期间，你最低星级的那个1费或2费弈子将会升星。"
+ },
+ {
+  "name": "有丝分裂",
+  "apiName": "DA_18_Mitosis",
+  "desc": "获得1个【微型英雄复制器】。"
+ },
+ {
+  "name": "未雨绸缪",
+  "apiName": "DA_18_Preppers",
+  "desc": "你的叠层型装备在下次战斗开始时，拥有部分初始层数。"
+ },
+ {
+  "name": "染血之币",
+  "apiName": "DA_18_BloodMoney_Upgrade",
+  "desc": "每击杀1个弈子，获得@UpgradeGoldOnDeath@金币。获得@UpgradeBaseGold@金币。"
+ },
+ {
+  "name": "树皮护甲",
+  "apiName": "DA_18_BarkArmor",
+  "desc": "你的弈子们获得@ShieldAmount@护盾值，持续@Duration@秒。"
+ },
+ {
+  "name": "树顶弓箭手",
+  "apiName": "DA_TreetopArchers_Prismatic",
+  "desc": "数量多到难以置信的弓箭手自林间放箭"
+ },
+ {
+  "name": "梁上君子",
+  "apiName": "DA_Cutpurse18_Upgrade",
+  "desc": "每过@Timer_Upgraded@秒，你的弈子们就有@PercentChance*100@%几率掉落@GoldDrop@金币。"
+ },
+ {
+  "name": "森林向导",
+  "apiName": "DA_ForestGuide18",
+  "desc": "获得1个随机4费弈子。"
+ },
+ {
+  "name": "森林多胞胎",
+  "apiName": "DA_ForestTwinsUpgrade18",
+  "desc": "获得3个相同的弈子，他们是其中一个你尚未拥有的2费弈子的复制体。"
+ },
+ {
+  "name": "森林魔法师",
+  "apiName": "DA_18_ForestMage",
+  "desc": "用【自然仙灵】填满你的商店。但是你只能购买1个！"
+ },
+ {
+  "name": "沙漠魔像",
+  "apiName": "TFT16_XerathZap_DesertGolem",
+  "desc": "下一场战斗：获得2个强大的魔像。"
+ },
+ {
+  "name": "法力药水",
+  "apiName": "DA_ManaPotion18_Upgrade_Charm",
+  "desc": "获得1个临时的、可装备的【光明版法力药水】。"
+ },
+ {
+  "name": "法术反制",
+  "apiName": "DA_18_Counterspell_Prismatic",
+  "desc": "使所有敌人的最大法力值提高@ManaIncreasePrismatic@，直至敌人下一次施放技能。"
+ },
+ {
+  "name": "泪雨",
+  "apiName": "DA_Rain18_Upgrade",
+  "desc": "你的队伍获得@Upgrade_ManaRegen@法力回复。"
+ },
+ {
+  "name": "活体商店",
+  "apiName": "DA_AnimateShop18",
+  "desc": "在@Duration@秒的持续时间内，你的商店每@Period@秒免费刷新1次。"
+ },
+ {
+  "name": "活体土壤",
+  "apiName": "DA_LivingSoil18_Upgrade",
+  "desc": "每过@RootFrequency@秒，根须会晕眩@RootTargets_Upgrade@名敌人@RootDuration@秒。"
+ },
+ {
+  "name": "灵龟降临",
+  "apiName": "DA_TurtlesVisit18_Upgrade",
+  "desc": "本场对战获得【野兽之灵】的【灵龟】增益。"
+ },
+ {
+  "name": "炸鱼行为",
+  "apiName": "DA_Smurfing18_Upgrade",
+  "desc": "获得一个随机5费弈子。"
+ },
+ {
+  "name": "点心时间到！",
+  "apiName": "DA_Snacktime18_Upgrade",
+  "desc": "【毛茸茸大朋友】会吃掉最大生命值低于@ExecuteThresholdUpgrade*100@%且受过其伤害的敌人。"
+ },
+ {
+  "name": "炽焰",
+  "apiName": "DA_Blaze18_Upgrade",
+  "desc": "火焰席卷整个棋盘，对敌人造成更高的真实伤害。"
+ },
+ {
+  "name": "焕新之光",
+  "apiName": "DA_RefreshingLight18",
+  "desc": "你的【日蚀骑士】弈子每有1星级(相同弈子不重复计数)，获得1次免费重随。"
+ },
+ {
+  "name": "爆炸药水",
+  "apiName": "DA_BlastPotion18_Upgrade_Charm",
+  "desc": "获得1个临时的、可装备的【光明版爆炸药水】。"
+ },
+ {
+  "name": "爆燃",
+  "apiName": "DA_FlashFire18_Upgrade",
+  "desc": "刷新你的商店。【地狱火】引燃@Upgrade_FireSlots@个商店栏位，将其升级。"
+ },
+ {
+  "name": "独行斗篷",
+  "apiName": "DA_SolitudesCloakUpgrade18",
+  "desc": "邻格无友军的弈子们获得@MaxHPBuffUpgrade*100@%最大生命值和@DamageAmpUpgrade*100@%伤害增幅。"
+ },
+ {
+  "name": "猎手的黄金之路",
+  "apiName": "DA_TrophyHunter18",
+  "desc": "下一场玩家对战，你的【宿敌】获得双倍参与击杀数。"
+ },
+ {
+  "name": "猛虎降临",
+  "apiName": "DA_TigersVisit18_Wisp_Upgrade",
+  "desc": "本场对战获得【野兽之灵】的【猛虎】增益。"
+ },
+ {
+  "name": "珍品摆摊车",
+  "apiName": "DA_CurioCart18",
+  "desc": "开启1个装备商店。装备的费用在0到@TooltipMaxCostOfItem@金币之间。"
+ },
+ {
+  "name": "生命药水",
+  "apiName": "DA_HealthPotion18_Upgrade_Charm",
+  "desc": "获得1个临时的、可装备的【光明版生命药水】。"
+ },
+ {
+  "name": "生态改造",
+  "apiName": "DA_Terraforming18",
+  "desc": "战斗开始时，获得@Seeds@颗种子。 "
+ },
+ {
+  "name": "男爵之手",
+  "apiName": "DA_HandOfBaron18_Upgrade",
+  "desc": "你的队伍获得【纳什男爵】增益，极大提升他们的属性。"
+ },
+ {
+  "name": "疯狂掷币人",
+  "apiName": "DA_FlipFrenzy18_Upgrade",
+  "desc": "抛掷1枚硬币，如果硬币正面朝上，获得@GoldIfHeads@金币。重复抛掷，直至你抛掷的硬币反面朝上。"
+ },
+ {
+  "name": "皇帝",
+  "apiName": "TFT16_XerathZap_TheEmperor",
+  "desc": "下一场战斗：【泽拉斯】获得@XerathDamageAmp*100@%伤害增幅。所有其他友军获得@TeamDamageAmp*100@%伤害增幅。"
+ },
+ {
+  "name": "皓月当空",
+  "apiName": "DA_18_Moonrise",
+  "desc": "在@ActivationDelay@秒后，提升@IncreaseRatio*100@%【月蚀骑士】羁绊效果。"
+ },
+ {
+  "name": "盆栽生命花",
+  "apiName": "DA_PottedLifebloom18",
+  "desc": "获得1株临时的【生命花】。"
+ },
+ {
+  "name": "盆栽石皮树",
+  "apiName": "DA_PottedStonebark18_Upgrade",
+  "desc": "获得1颗临时的【石皮树】。"
+ },
+ {
+  "name": "瞄准镜",
+  "apiName": "DA_ImprovedReach18",
+  "desc": "你的【战士】获得+@RangeIncrease@攻击距离。"
+ },
+ {
+  "name": "石化术",
+  "apiName": "DA_PetrifiedDummy18_Upgrade",
+  "desc": "你第1个阵亡的弈子在阵亡时，会转化为1个拥有其防御属性和@StatueHealth_Upgrade@生命值的【训练假人】。"
+ },
+ {
+  "name": "破盾秘法",
+  "apiName": "DA_PetrifyShields18_Upgrade",
+  "desc": "使敌人减速@ChillAmount@%，并将其护盾值削减@UpgradeShieldMultiplier*100@%，持续@Duration@秒。"
+ },
+ {
+  "name": "神器化",
+  "apiName": "DA_Artifactinate18",
+  "desc": "失去@NumComponents@件基础装备，包括已合成为成装的基础装备。获得1个【神器锻造器】。"
+ },
+ {
+  "name": "神器发掘",
+  "apiName": "TFT16_XerathZap_TheSun",
+  "desc": "获得1个【神器锻造器】。"
+ },
+ {
+  "name": "秘术",
+  "apiName": "TFT15_HiddenTech_ItemData",
+  "desc": "TFT15_HiddenTech_ShopData_Description"
+ },
+ {
+  "name": "精粹掠夺者",
+  "apiName": "DA_EssenceTheft18_Upgrade",
+  "desc": "本场对战额外获得@UpgradeBonus*100@%【女巫精粹】。"
+ },
+ {
+  "name": "繁殖",
+  "apiName": "DA_18_Propagate_Upgrade",
+  "desc": "获得第1个阵亡的友军的1个复制体。"
+ },
+ {
+  "name": "约德尔之灵",
+  "apiName": "DA_18_YordleSpirit",
+  "desc": "友军有@DodgeChance@%几率闪避攻击，持续@Duration@秒。"
+ },
+ {
+  "name": "终极飞升",
+  "apiName": "DA_18_UltraAscension_Prismatic",
+  "desc": "在@PrismaticActivationDelay@秒后，友军获得@DamageAmp*100@%伤害增幅。"
+ },
+ {
+  "name": "绿意盎然",
+  "apiName": "DA_18_VerdantVitality_Upgrade",
+  "desc": "你的弈子们获得@UpgradeHealthAmount@生命值。"
+ },
+ {
+  "name": "绿洲的赦免",
+  "apiName": "TFT16_XerathZap_OasissReprieve",
+  "desc": "下一场战斗：在@Delay@秒之后，你的队伍快速回复@PercentHeal*100@%最大生命值。"
+ },
+ {
+  "name": "老练",
+  "apiName": "DA_18_Experienced_Upgrade",
+  "desc": "获得@UpgradeXP@经验值。"
+ },
+ {
+  "name": "肥料",
+  "apiName": "DA_18_Fertilize_Upgrade",
+  "desc": "每有1名阵亡的敌人，获得@XPonDeath@经验值。获得@BaseXPUpgrade@经验值。"
+ },
+ {
+  "name": "腰带批发",
+  "apiName": "DA_BunchOBeltsUpgrade18",
+  "desc": "你的友军获得@NumBeltsToGrantUpgrade@个无法移除的临时【巨人腰带】。"
+ },
+ {
+  "name": "自然之友",
+  "apiName": "DA_NaturesAlly18_Upgrade",
+  "desc": "每有@ChampionDeathsPerSummon_Upgrade@名友军阵亡，召唤1个随机【峡谷野怪】 有时会召唤出2星的版本。"
+ },
+ {
+  "name": "自然之怒",
+  "apiName": "DA_NaturesWrath18",
+  "desc": "在@KillDelay@秒后，将所有未携带装备的单位击杀。"
+ },
+ {
+  "name": "英勇就义",
+  "apiName": "DA_18_HeroicSacrifice_Upgrade",
+  "desc": "你最强大的@NumAllies@个弈子获得史！诗！级！强！化！，但其他友军将会牺牲。"
+ },
+ {
+  "name": "英雄登场",
+  "apiName": "DA_HerosEntrance18",
+  "desc": "在@UnitJoinDelay@秒后，备战席最左侧的弈子加入战斗，并获得@NumRecItems@件推荐装备。"
+ },
+ {
+  "name": "荆棘环身",
+  "apiName": "DA_WrappedInThorns18",
+  "desc": "你的【坦克】每@ReflectFrequency@秒将所受伤害的@DamageReflectionMult*100@%反射给邻格的敌人。"
+ },
+ {
+  "name": "药学博士",
+  "apiName": "DA_Potioncraft18",
+  "desc": "获得3个临时的、可装备的【药水】。"
+ },
+ {
+  "name": "萤火虫之家",
+  "apiName": "DA_HomingFireflies18",
+  "desc": "你的【术师】每消耗@ManaPerFirefly@法力值，召唤1只萤火虫。每只萤火虫造成@FireflyDamage@魔法伤害。"
+ },
+ {
+  "name": "蛮熊降临",
+  "apiName": "DA_BearsVisit18",
+  "desc": "本场对战获得【野兽之灵】的【蛮熊】增益。"
+ },
+ {
+  "name": "蜂鸟",
+  "apiName": "DA_18_Hummingbird_Upgrade",
+  "desc": "你攻击速度最高的那个单位变小，获得@ASGainUpgrade*100@%攻击速度。"
+ },
+ {
+  "name": "行云流水",
+  "apiName": "DA_Flow18_Upgrade",
+  "desc": "你的弈子们获得持续@DurationUpgrade@秒的不可阻挡效果和@AttackSpeed*100@%攻击速度。"
+ },
+ {
+  "name": "衣冠冢",
+  "apiName": "DA_MemorialDummy18",
+  "desc": "你最先阵亡的携带着装备的那个坦克，在阵亡时会召唤1个携带着其装备的【训练假人】。"
+ },
+ {
+  "name": "衣衫褴褛",
+  "apiName": "DA_18_TatteredArmor_Upgrade",
+  "desc": "对敌人施加@UpgradeShredSunderPercent@%魔抗击碎与护甲击碎，持续@UpgradeDuration@秒。"
+ },
+ {
+  "name": "训练场",
+  "apiName": "DA_TrainingYard18_Upgrade",
+  "desc": "获得@NumDummiesUpgrade@个携带着1件随机坦克装备的【训练假人】。"
+ },
+ {
+  "name": "贴贴",
+  "apiName": "DA_18_Fellowship",
+  "desc": "每有1名相邻的友军，弈子们就会获得@MaxHealthShield*100@%最大生命值护盾和@DamageAmp*100@%伤害增幅。"
+ },
+ {
+  "name": "超级暴击",
+  "apiName": "DA_18_Supercritical",
+  "desc": "拥有【技能暴击】的友军获得@CritDamage*100@%暴击伤害。"
+ },
+ {
+  "name": "边境村庄",
+  "apiName": "DA_BorderVillage18_Upgrade",
+  "desc": "刷新你的商店，使其充满2星2费弈子。"
+ },
+ {
+  "name": "远古宝藏",
+  "apiName": "TFT16_XerathZap_AncientTreasures",
+  "desc": "获得1个【幸运装备宝箱】。"
+ },
+ {
+  "name": "迷路的游客",
+  "apiName": "DA_18_LostTravelers",
+  "desc": "获得总价值3金币的随机弈子。"
+ },
+ {
+  "name": "野区",
+  "apiName": "DA_Jungling18",
+  "desc": "让【峡谷野怪】占据你的商店。"
+ },
+ {
+  "name": "金钱之力",
+  "apiName": "DA_18_MercenaryForce_Upgrade",
+  "desc": "每拥有@PerXGold@金币，获得@DamageAmpUpgrade*100@%伤害增幅。"
+ },
+ {
+  "name": "鏖战不休",
+  "apiName": "DA_18_HeatedRivalry",
+  "desc": "获得1个【雷恩加尔】或1个【卡兹克】。其获得+@NumStacks@参与击杀数。"
+ },
+ {
+  "name": "钢铁核心",
+  "apiName": "DA_IronCore18_Upgrade",
+  "desc": "每有1个位于前排的单位，你前排中心的那个弈子就会获得@UpgradeMaxHealthPerFrontRowUnit*100@%最大生命值。"
+ },
+ {
+  "name": "铜汤匙",
+  "apiName": "DA_18_BronzeSpoon",
+  "desc": "获得@XP@经验值。"
+ },
+ {
+  "name": "镀板护盾",
+  "apiName": "DA_PlatedShields18",
+  "desc": "护盾强度提升@BonusShieldPercent*100@%。友军获得@ShieldAmount@护盾值，持续@ShieldDuration@秒。"
+ },
+ {
+  "name": "长大",
+  "apiName": "DA_GrowUp18",
+  "desc": "获得@XP@经验值。"
+ },
+ {
+  "name": "长者之环",
+  "apiName": "DA_18_CircleofElders_Upgrade",
+  "desc": "获得每个5费弈子各1个。"
+ },
+ {
+  "name": "闪电打击",
+  "apiName": "DA_18_LightningStrike",
+  "desc": "对所有敌人造成@HPPercentDamage*100@%最大生命值真实伤害。"
+ },
+ {
+  "name": "闪电风暴",
+  "apiName": "DA_18_LightningStorm",
+  "desc": "每过@Frequency@秒，对1名敌人造成@HPPercentDamage*100@%最大生命值真实伤害。"
+ },
+ {
+  "name": "闲散工匠",
+  "apiName": "DA_IdleCraftsman18",
+  "desc": "将你备战席的1件基础装备转化为它可合成的1件成装。"
+ },
+ {
+  "name": "防微杜渐",
+  "apiName": "DA_18_EarlyFix",
+  "desc": "获得@NumReforgers@个【装备重铸器】。"
+ },
+ {
+  "name": "雇佣兵",
+  "apiName": "DA_Hireling18",
+  "desc": "1个临时的、携带着@NumRecommendedItems@件推荐装备的@StarLevel@星@UnitTier@费弈子加入你的队伍。"
+ },
+ {
+  "name": "零碎",
+  "apiName": "DA_Scrappy18",
+  "desc": "战斗开始时：未携带任何装备的@NumChamps@个弈子会获得1件临时的推荐装备。"
+ },
+ {
+  "name": "零花钱",
+  "apiName": "DA_18_PocketChange_Upgrade",
+  "desc": "你的1星弈子们在阵亡时掉落@GoldOnDeath@金币。获得@UpgradeGoldGranted@金币。"
+ },
+ {
+  "name": "顺流而下",
+  "apiName": "DA_RideTheWave18",
+  "desc": "在本回合内，在上场对战中登场的@NumUnitsPerShop@+个弈子会出现在你的下@NumShops@次刷新的商店中。"
+ },
+ {
+  "name": "预言之子",
+  "apiName": "DA_HeroOfProphecy18_Upgrade",
+  "desc": "获得1个五费弈子。每回合都会再获得1个该弈子(永远！直至游戏结束)。"
+ },
+ {
+  "name": "飞升者的召唤",
+  "apiName": "TFT16_XerathZap_AscendedsCall",
+  "desc": "下一场战斗：【恕瑞玛】弈子们每秒获得@AD*100@% %i:scaleAD%%i:scaleAP%。在@ASDelay@秒之后，获得@AttackSpeed*100@% %i:scaleAS%。"
+ },
+ {
+  "name": "骨头滚滚",
+  "apiName": "DA_RollingBones18_Upgrade",
+  "desc": "每获得1次击杀，你都有@RerollChanceOnKillUpgrade*100@几率获得1次刷新，如果获胜该几率提升@RerollsOnWinUpgrade@。"
+ },
+ {
+  "name": "高阶变形术",
+  "apiName": "DA_18_MajorPolymorph_Upgrade",
+  "desc": "你拥有的那个星级最高的4费弈子永久变形为1个5费。"
+ },
+ {
+  "name": "鬼鬼祟祟",
+  "apiName": "DA_Stealthy18_Upgrade",
+  "desc": "你后排的@NumChampionsUpgrade@个随机弈子获得持续@UntargetableDurationUpgrade@秒的不可被选取效果。"
+ },
+ {
+  "name": "鲜血与铁",
+  "apiName": "DA_BloodAndIron18",
+  "desc": "在@NumDeathsToProc@个弈子阵亡后，获得1个【基础装备锻造器】。"
+ }
+]

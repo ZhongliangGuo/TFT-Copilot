@@ -1,0 +1,238 @@
+<title>TFT HUD 圈选器</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+  :root{
+    --bg:#0f1622; --panel:#161f2e; --panel2:#1c2740; --edge:#2b394f; --edge2:#3a4d6a;
+    --ink:#e6edfb; --muted:#8697b5; --gold:#c8a24a; --active:#ff5a5a; --other:#33c0e6; --good:#3fd8a0;
+    --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);margin:0;height:100vh;overflow:hidden}
+  .app{display:grid;grid-template-columns:1fr 372px;height:100vh}
+  /* ---- left stage ---- */
+  .stage-wrap{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--edge)}
+  .bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--panel);
+       border-bottom:1px solid var(--edge);flex-wrap:wrap}
+  .bar .title{font-weight:700;letter-spacing:.02em;margin-right:6px}
+  .bar .title b{color:var(--gold)}
+  select,button,input{font-family:var(--sans);color:var(--ink)}
+  select,.btn{background:var(--panel2);border:1px solid var(--edge2);border-radius:7px;padding:6px 10px;
+       font-size:13px;cursor:pointer}
+  .btn:hover{border-color:var(--gold)}
+  .btn.gold{background:var(--gold);color:#20170a;border-color:var(--gold);font-weight:700}
+  .seg{display:inline-flex;border:1px solid var(--edge2);border-radius:7px;overflow:hidden}
+  .seg button{background:var(--panel2);border:0;padding:6px 12px;font-size:13px;cursor:pointer;color:var(--muted)}
+  .seg button.on{background:var(--gold);color:#20170a;font-weight:700}
+  .coord{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .coord b{color:var(--other);font-variant-numeric:tabular-nums}
+  .stage{flex:1;overflow:auto;background:#0a0f18 repeating-linear-gradient(45deg,#0c121c 0 12px,#0a0f18 12px 24px)}
+  #cv{display:block;image-rendering:pixelated;cursor:crosshair}
+  .hint{padding:6px 14px;font-size:12px;color:var(--muted);background:var(--panel);border-top:1px solid var(--edge)}
+  .hint kbd{font-family:var(--mono);background:var(--panel2);border:1px solid var(--edge2);border-radius:4px;
+       padding:1px 5px;color:var(--ink)}
+  /* ---- right rail ---- */
+  .rail{display:flex;flex-direction:column;min-height:0;background:var(--panel)}
+  .rail-h{padding:12px 14px;border-bottom:1px solid var(--edge)}
+  .rail-h h1{font-size:15px;margin:0 0 3px}
+  .rail-h p{margin:0;font-size:12px;color:var(--muted);line-height:1.4}
+  .add{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid var(--edge);align-items:center}
+  .add select{flex:1}
+  .list{flex:1;overflow:auto;padding:8px 10px;display:flex;flex-direction:column;gap:7px}
+  .rg{border:1px solid var(--edge2);border-radius:9px;padding:9px 10px;background:var(--panel2);cursor:pointer}
+  .rg.sel{border-color:var(--active);box-shadow:0 0 0 1px var(--active)}
+  .rg .top{display:flex;align-items:center;gap:8px}
+  .rg .dot{width:9px;height:9px;border-radius:50%;background:var(--other);flex:none}
+  .rg.sel .dot{background:var(--active)}
+  .rg .nm{font-weight:700;font-size:13px}
+  .rg .cn{font-size:11px;color:var(--muted)}
+  .rg .x{margin-left:auto;color:var(--muted);border:0;background:none;cursor:pointer;font-size:15px;padding:0 4px}
+  .rg .x:hover{color:var(--active)}
+  .nums{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+  .nums label{display:flex;flex-direction:column;gap:2px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .nums input{font-family:var(--mono);font-weight:700;background:var(--bg);border:1px solid var(--edge2);
+       border-radius:6px;padding:5px 6px;font-size:13px;width:100%;text-align:center;
+       font-variant-numeric:tabular-nums}
+  .nums input:focus{outline:2px solid var(--gold);outline-offset:-1px}
+  .prev-wrap{border-top:1px solid var(--edge);padding:10px 14px}
+  .prev-wrap .lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;
+       display:flex;justify-content:space-between}
+  .prev-wrap .lab b{color:var(--gold);font-family:var(--mono)}
+  #prev{width:100%;height:140px;background:#000;border:1px solid var(--edge2);border-radius:8px;image-rendering:pixelated}
+  .exp{border-top:1px solid var(--edge);padding:10px 14px;display:flex;flex-direction:column;gap:8px}
+  .exp textarea{width:100%;height:120px;font-family:var(--mono);font-size:11px;background:var(--bg);
+       color:var(--good);border:1px solid var(--edge2);border-radius:8px;padding:8px;resize:vertical}
+  .exp .row{display:flex;gap:8px}
+  .exp .btn{flex:1;text-align:center}
+  @media(max-width:760px){.app{grid-template-columns:1fr;grid-template-rows:1fr auto;height:auto;overflow:auto}
+    body{overflow:auto;height:auto}.stage{max-height:60vh}}
+</style>
+
+<div class="app">
+  <div class="stage-wrap">
+    <div class="bar">
+      <span class="title">TFT <b>HUD</b> 圈选</span>
+      <select id="imgsel"></select>
+      <div class="seg" id="zoomseg">
+        <button data-z="fit">适应</button><button data-z="1">1×</button>
+        <button data-z="2">2×</button><button data-z="3">3×</button>
+      </div>
+      <span class="coord">光标 <b id="cur">–</b></span>
+    </div>
+    <div class="stage" id="stage"><canvas id="cv"></canvas></div>
+    <div class="hint">在图上<b>拖动</b>画新框 · 点已有框选中 · 选中后可拖动，或右侧用数字微调（点数字框按 <kbd>↑</kbd><kbd>↓</kbd>）</div>
+  </div>
+
+  <div class="rail">
+    <div class="rail-h">
+      <h1>区域清单</h1>
+      <p>先选模式，画框并命名。金币/血量记得留够 2–3 位数字宽度。导出的 JSON 发回即可。</p>
+    </div>
+    <div class="add">
+      <div class="seg" id="modeseg">
+        <button data-m="ally" class="on">我方棋盘</button><button data-m="augment">选海克斯</button>
+      </div>
+      <select id="preset" title="下次画的框用哪个名字"></select>
+    </div>
+    <div class="list" id="list"></div>
+    <div class="prev-wrap">
+      <div class="lab"><span>选中区域预览</span><b id="prevbox">–</b></div>
+      <canvas id="prev"></canvas>
+    </div>
+    <div class="exp">
+      <textarea id="json" readonly></textarea>
+      <div class="row"><button class="btn gold" id="copy">复制 JSON</button>
+        <button class="btn" id="clear">清空当前模式</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const IMAGES = /*__IMAGES__*/[];
+const CN = {stage:'阶段',level:'等级',xp:'经验',gold:'金币',health:'血量',
+  shop_1:'商店1',shop_2:'商店2',shop_3:'商店3',shop_4:'商店4',shop_5:'商店5',
+  bench_items:'备战散装备',augment_1:'海克斯1',augment_2:'海克斯2',augment_3:'海克斯3'};
+const PRESETS = {ally:['stage','level','xp','gold','health','shop_1','shop_2','shop_3','shop_4','shop_5','bench_items'],
+  augment:['stage','health','augment_1','augment_2','augment_3']};
+const NATW=1920, NATH=1080;
+
+let mode='ally', imgIdx=0, scale=1, zoomMode='fit';
+let regions=[]; // {mode,name,x,y,w,h}
+let sel=-1;
+let drag=null; // {type:'new'|'move', sx,sy, ox,oy}
+const imgEls=[];
+
+// load
+try{const s=JSON.parse(localStorage.getItem('tft_hud_regions')||'null'); if(Array.isArray(s)) regions=s;}catch(e){}
+
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+const stage=document.getElementById('stage');
+const prev=document.getElementById('prev'), pctx=prev.getContext('2d');
+
+// image dropdown
+const imgsel=document.getElementById('imgsel');
+IMAGES.forEach((im,i)=>{const o=document.createElement('option');o.value=i;o.textContent=im.label;imgsel.appendChild(o);
+  const el=new Image(); el.src=im.url; imgEls[i]=el;});
+imgsel.onchange=()=>{imgIdx=+imgsel.value; const m=IMAGES[imgIdx].mode; if(m){setMode(m);} draw();};
+
+function curImg(){return imgEls[imgIdx];}
+
+function fitScale(){ const availW=stage.clientWidth-4, availH=stage.clientHeight-4;
+  return Math.min(availW/NATW, availH/NATH); }
+function applyZoom(){ scale = zoomMode==='fit' ? fitScale() : +zoomMode;
+  cv.width=Math.round(NATW*scale); cv.height=Math.round(NATH*scale); draw(); }
+
+document.getElementById('zoomseg').onclick=e=>{const z=e.target.dataset.z; if(!z)return;
+  zoomMode=z; [...e.currentTarget.children].forEach(b=>b.classList.toggle('on',b.dataset.z===z)); applyZoom();};
+document.querySelector('#zoomseg button').classList.add('on');
+
+document.getElementById('modeseg').onclick=e=>{const m=e.target.dataset.m; if(m) setMode(m);};
+function setMode(m){mode=m; [...document.querySelectorAll('#modeseg button')].forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+  sel=-1; fillPreset(); renderList(); draw(); updateExport();}
+
+function fillPreset(){const p=document.getElementById('preset'); p.innerHTML='';
+  PRESETS[mode].forEach(n=>{const o=document.createElement('option');o.value=n;
+    o.textContent=(CN[n]||n)+'  ('+n+')';p.appendChild(o);});
+  const o=document.createElement('option');o.value='__custom';o.textContent='自定义…';p.appendChild(o);}
+
+// ---- drawing on canvas ----
+function evPos(e){const r=cv.getBoundingClientRect();
+  return {x:Math.round((e.clientX-r.left)/scale), y:Math.round((e.clientY-r.top)/scale)};}
+function clampBox(b){b.x=Math.max(0,Math.min(NATW-1,b.x));b.y=Math.max(0,Math.min(NATH-1,b.y));
+  b.w=Math.max(1,Math.min(NATW-b.x,b.w));b.h=Math.max(1,Math.min(NATH-b.y,b.h));}
+function hit(x,y){const rs=regions.map((r,i)=>[r,i]).filter(([r])=>r.mode===mode);
+  for(let k=rs.length-1;k>=0;k--){const[r,i]=rs[k]; if(x>=r.x&&x<=r.x+r.w&&y>=r.y&&y<=r.y+r.h)return i;} return -1;}
+
+cv.addEventListener('mousedown',e=>{const p=evPos(e); const h=hit(p.x,p.y);
+  if(h>=0){sel=h; drag={type:'move',sx:p.x,sy:p.y,ox:regions[h].x,oy:regions[h].y}; renderList(); draw(); updatePreview();}
+  else{const name=document.getElementById('preset').value;
+    let nm=name; if(name==='__custom'){nm=(prompt('区域名(英文/拼音, 如 gold)')||'').trim(); if(!nm)return;}
+    regions.push({mode,name:nm,x:p.x,y:p.y,w:1,h:1}); sel=regions.length-1;
+    drag={type:'new',sx:p.x,sy:p.y}; }});
+window.addEventListener('mousemove',e=>{
+  const r=cv.getBoundingClientRect();
+  const x=Math.round((e.clientX-r.left)/scale), y=Math.round((e.clientY-r.top)/scale);
+  document.getElementById('cur').textContent=(x>=0&&x<=NATW&&y>=0&&y<=NATH)?`${x}, ${y}`:'–';
+  if(!drag)return; const b=regions[sel];
+  if(drag.type==='new'){b.x=Math.min(drag.sx,x);b.y=Math.min(drag.sy,y);b.w=Math.abs(x-drag.sx);b.h=Math.abs(y-drag.sy);}
+  else{b.x=drag.ox+(x-drag.sx);b.y=drag.oy+(y-drag.sy);}
+  clampBox(b); draw(); syncInputs(); updatePreview();});
+window.addEventListener('mouseup',()=>{if(drag){if(drag.type==='new'&&(regions[sel].w<3||regions[sel].h<3)){regions[sel].w=Math.max(20,regions[sel].w);regions[sel].h=Math.max(14,regions[sel].h);clampBox(regions[sel]);}
+  drag=null; save(); renderList(); updateExport(); updatePreview();}});
+
+function draw(){const img=curImg(); ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.imageSmoothingEnabled=false;
+  if(img&&img.complete) ctx.drawImage(img,0,0,cv.width,cv.height);
+  regions.forEach((r,i)=>{if(r.mode!==mode)return; const on=i===sel;
+    ctx.lineWidth=on?2:1.5; ctx.strokeStyle=on?'#ff5a5a':'#33c0e6';
+    ctx.strokeRect(r.x*scale+.5,r.y*scale+.5,r.w*scale,r.h*scale);
+    ctx.fillStyle=on?'#ff5a5a':'#33c0e6'; ctx.font='700 '+Math.max(11,12)+'px system-ui';
+    const t=(CN[r.name]||r.name||'?'); ctx.fillText(t,r.x*scale, Math.max(11,r.y*scale-4));});}
+
+// ---- right list ----
+const listEl=document.getElementById('list');
+function renderList(){listEl.innerHTML='';
+  regions.forEach((r,i)=>{if(r.mode!==mode)return;
+    const d=document.createElement('div'); d.className='rg'+(i===sel?' sel':'');
+    d.innerHTML=`<div class="top"><span class="dot"></span>
+        <span class="nm">${r.name||'(未命名)'}</span><span class="cn">${CN[r.name]||''}</span>
+        <button class="x" title="删除">✕</button></div>
+      <div class="nums">
+        ${['x','y','w','h'].map(k=>`<label>${k}<input data-k="${k}" data-i="${i}" type="number" value="${r[k]}"></label>`).join('')}
+      </div>`;
+    d.onclick=e=>{if(e.target.tagName==='INPUT'||e.target.classList.contains('x'))return; sel=i; renderList(); draw(); updatePreview();};
+    d.querySelector('.x').onclick=()=>{regions.splice(i,1); if(sel===i)sel=-1; save(); renderList(); draw(); updateExport(); updatePreview();};
+    d.querySelectorAll('input').forEach(inp=>{inp.oninput=()=>{const k=inp.dataset.k; regions[i][k]=parseInt(inp.value||'0',10)||0; clampBox(regions[i]); sel=i; draw(); updatePreview(); updateExport(); save();};
+      inp.onfocus=()=>{sel=i; renderList(); draw(); updatePreview();};});
+    listEl.appendChild(d);});}
+function syncInputs(){listEl.querySelectorAll('input').forEach(inp=>{const i=+inp.dataset.i;
+  if(i===sel) inp.value=regions[i][inp.dataset.k];});}
+
+// ---- preview ----
+function updatePreview(){const r=regions[sel]; const img=curImg();
+  document.getElementById('prevbox').textContent = r? `[${r.x}, ${r.y}, ${r.w}, ${r.h}]` : '–';
+  pctx.clearRect(0,0,prev.width,prev.height);
+  if(!r||!img||!img.complete)return;
+  prev.width=prev.clientWidth; prev.height=140;
+  const z=Math.max(1,Math.min(prev.width/r.w, prev.height/r.h));
+  const dw=r.w*z, dh=r.h*z, ox=(prev.width-dw)/2, oy=(prev.height-dh)/2;
+  pctx.imageSmoothingEnabled=false;
+  pctx.fillStyle='#000';pctx.fillRect(0,0,prev.width,prev.height);
+  pctx.drawImage(img, r.x,r.y,r.w,r.h, ox,oy,dw,dh);
+  pctx.strokeStyle='#ff5a5a';pctx.lineWidth=1;pctx.strokeRect(ox+.5,oy+.5,dw-1,dh-1);}
+
+// ---- export ----
+function updateExport(){const out={resolution:[NATW,NATH],ally:{},augment:{}};
+  regions.forEach(r=>{if(!r.name)return; out[r.mode][r.name]={box:[r.x,r.y,r.w,r.h]};});
+  document.getElementById('json').value=JSON.stringify(out,null,2);}
+document.getElementById('copy').onclick=()=>{const t=document.getElementById('json');
+  navigator.clipboard?.writeText(t.value); const b=document.getElementById('copy');b.textContent='已复制 ✓';setTimeout(()=>b.textContent='复制 JSON',1200);};
+document.getElementById('clear').onclick=()=>{if(!confirm('清空「'+mode+'」的所有框?'))return;
+  regions=regions.filter(r=>r.mode!==mode); sel=-1; save(); renderList(); draw(); updateExport(); updatePreview();};
+function save(){try{localStorage.setItem('tft_hud_regions',JSON.stringify(regions));}catch(e){}}
+
+// init
+fillPreset(); renderList(); updateExport();
+new ResizeObserver(()=>{if(zoomMode==='fit')applyZoom();}).observe(stage);
+let ready=setInterval(()=>{if(curImg()&&curImg().complete){clearInterval(ready);applyZoom();updatePreview();}},60);
+</script>

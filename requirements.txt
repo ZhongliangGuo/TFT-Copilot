@@ -1,0 +1,17 @@
+# Single environment for everything (backend + vision). No torch needed —
+# vision inference is onnxruntime-only.
+fastapi
+uvicorn
+python-multipart
+openai
+anthropic
+pypinyin
+pyyaml
+
+# vision service
+onnxruntime          # CPU build; swap for onnxruntime-gpu to use an NVIDIA GPU
+opencv-python
+numpy
+pillow
+rapidocr-onnxruntime
+scipy                # ndimage, used by hud_regions.py for health-bar detection

@@ -1,0 +1,35 @@
+# TFT Copilot 全局配置
+region: cn            # 数据/Meta 所属服务器: cn | euw | na (目前仅实现 cn)
+set: 18               # 当前赛季 (换赛季改这里)
+locale: zh_cn
+
+persist_sessions: false  # false 时会话只存内存, 不落盘 data/sessions/ (省服务端存储; 重启后会话丢失)
+
+llm:
+  provider: deepseek            # 默认供应商 (.env 里 LLM_PROVIDER 可覆盖)
+  allow_user_key: true          # true 时 GUI 显示 API 设置按钮 (自填 key + 选供应商/模型)
+  providers:
+    deepseek:                   # OpenAI 兼容接口
+      kind: openai
+      base_url: https://api.deepseek.com
+      api_key_env: DEEPSEEK_API_KEY
+      model: deepseek-v4-flash        # 默认模型 (.env 里 DEEPSEEK_MODEL 可覆盖)
+      model_deep: deepseek-v4-pro     # 「深度思考」开关用
+      models:                          # GUI 下拉可选 (来自官方 /models 接口, 2026-09 核对)
+        - deepseek-v4-flash
+        - deepseek-v4-pro
+        - deepseek-v4-flash-vision-exp
+    claude:                     # Anthropic 官方 SDK
+      kind: anthropic
+      api_key_env: ANTHROPIC_API_KEY
+      model: claude-opus-5            # 默认模型 (.env 里 CLAUDE_MODEL 可覆盖)
+      model_deep: claude-opus-5
+      models:
+        - claude-opus-5               # $5/$25 每百万token, 最强
+        - claude-sonnet-5             # $2/$10, 快且便宜
+        - claude-haiku-4-5            # $1/$5, 最快
+
+data:
+  raw_dir: data/raw
+  packs_dir: data/packs
+  cdragon_url: https://raw.communitydragon.org/latest/cdragon/tft/{locale}.json

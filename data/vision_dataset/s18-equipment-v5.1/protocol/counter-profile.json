@@ -1,0 +1,177 @@
+{
+  "id": "s18-counter-v5.1",
+  "classes": {
+    "ArchangelsStaff": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_ArchangelsStaff",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\ArchangelsStaff\\Base\\DA_ArchangelsStaff.json"
+    },
+    "Artifact_MogulsMail": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_Artifact_MogulsMail",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\Artifact_MogulsMail\\DA_Artifact_MogulsMail.json"
+    },
+    "Artifact_NavoriFlickerblade": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_Artifact_NavoriFlickerblade",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\Artifact_NavoriFlickerblade\\DA_Artifact_NavoriFlickerblade.json"
+    },
+    "Artifact_SeekersArmguard": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_Artifact_SeekersArmguard",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\Artifact_SeekersArmguard\\DA_Artifact_SeekersArmguard.json"
+    },
+    "GuinsoosRageblade": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_GuinsoosRageblade",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\GuinsoosRageblade\\Base\\DA_GuinsoosRageblade.json"
+    },
+    "KrakensFury": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_KrakensFury",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\KrakensFury\\Base\\DA_KrakensFury.json"
+    },
+    "TitansResolve": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_TitansResolve",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\TitansResolve\\Base\\DA_TitansResolve.json"
+    },
+    "TFT5_Item_ArchangelsStaffRadiant": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_ArchangelsStaffRadiant",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\ArchangelsStaff\\Radiant\\DA_ArchangelsStaffRadiant.json",
+      "digitKey": "0_radiant"
+    },
+    "TFT5_Item_TitansResolveRadiant": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_TitansResolve_Radiant",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\TitansResolve\\Radiant\\DA_TitansResolve_Radiant.json",
+      "digitKey": "0_radiant"
+    },
+    "TFT5_Item_RunaansHurricaneRadiant": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_KrakensFury_Radiant",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\KrakensFury\\Radiant\\DA_KrakensFury_Radiant.json",
+      "digitKey": "0_radiant"
+    },
+    "TFT5_Item_GuinsoosRagebladeRadiant": {
+      "attribute": "Stack",
+      "nativeDefinition": "DA_GuinsoosRagebladeRadiant",
+      "evidence": "data\\exports\\counter-complete-v5b\\TFT\\Plugins\\GameFeatures\\Item_Shared\\Content\\Item\\GuinsoosRageblade\\Radiant\\DA_GuinsoosRagebladeRadiant.json",
+      "digitKey": "0_radiant"
+    }
+  },
+  "digits": {
+    "0": {
+      "url": "/assets/equipment-counters-v5/0.png",
+      "bbox": [
+        5,
+        14,
+        11,
+        15
+      ],
+      "method": "gold-coverage reconstruction from supplied measured zero; black outline/shadow reconstructed",
+      "sha256": "4a244bdf755919332546a591e9794b054d8c1b332ff74069e78ccaaf98703704"
+    },
+    "0_radiant": {
+      "url": "/assets/equipment-counters-v5-1/0_radiant.png",
+      "bbox": [
+        7,
+        15,
+        9,
+        12
+      ],
+      "method": "Radiant Guinsoo zero gold coverage from user screenshot; outline/shadow reconstructed; applied to four radiant counters",
+      "sha256": "aab0b8b75ff8eccc11bbe89fb041a9af72256e66b58079a17587ac5676bbd5cc"
+    }
+  },
+  "defaultValue": 0,
+  "visibilityOverrides": {
+    "Artifact_BlightingJewel": {
+      "display": false,
+      "evidence": "User observed CN S18 gameplay: no displayed number; native AbilityPower attribute is not visibility proof"
+    }
+  },
+  "userConfirmedDisplay": [
+    "ArchangelsStaff",
+    "Artifact_MogulsMail",
+    "Artifact_NavoriFlickerblade",
+    "Artifact_SeekersArmguard",
+    "GuinsoosRageblade",
+    "KrakensFury",
+    "TitansResolve",
+    "TFT5_Item_ArchangelsStaffRadiant",
+    "TFT5_Item_TitansResolveRadiant",
+    "TFT5_Item_RunaansHurricaneRadiant",
+    "TFT5_Item_GuinsoosRagebladeRadiant"
+  ],
+  "userConfirmedPreparationValue": 0,
+  "confirmation": "User confirmed all eleven remaining candidates display zero in preparation; Blighting Jewel displays no number.",
+  "sourceImage": {
+    "path": "G:/yi_row_measure.png",
+    "sha256": "ff58e3c56edc44753d7c0370ae3386801cbf6e531ec83679a0f65b3705591cd4",
+    "scale": 12
+  },
+  "nativeFont": "GillSans Medium",
+  "nativeFontSize": 22,
+  "nativeOutlineSize": 3,
+  "nativeShadowOffset": [
+    2,
+    2
+  ],
+  "nativeMaterial": "MI_Gold8",
+  "pixelGold": [
+    250,
+    238,
+    72
+  ],
+  "pixelOutlineRadius": 1,
+  "pixelShadowOffset": [
+    1,
+    1
+  ],
+  "exactNativeFont": false,
+  "exactNativeMaterial": false,
+  "caveat": "Visibility and preparation zero confirmed by user gameplay; native config corroborates Stack attribute. Pixel scale/outline/material are calibrated approximations, not exact native font rendering.",
+  "radiantCalibration": {
+    "source": "zero_compare.png",
+    "sourceSha256": "a87b42269bc4ec1d273ec09f1c6a001afc0a8389e7e65a4e0515dc7dfc6874e6",
+    "enlargedPanel": [
+      306,
+      25,
+      276,
+      348
+    ],
+    "integerScale": 12,
+    "goldWindow": [
+      8,
+      16,
+      6,
+      9
+    ],
+    "goldPixelsAboveHalfCoverage": 24,
+    "goldCoverageArea": 21.498039215686273,
+    "outputCounterBBox": [
+      7,
+      15,
+      9,
+      12
+    ],
+    "outputUnionBBox": [
+      0,
+      0,
+      23,
+      27
+    ],
+    "observedClass": "TFT5_Item_GuinsoosRagebladeRadiant",
+    "appliedClasses": [
+      "TFT5_Item_ArchangelsStaffRadiant",
+      "TFT5_Item_GuinsoosRagebladeRadiant",
+      "TFT5_Item_RunaansHurricaneRadiant",
+      "TFT5_Item_TitansResolveRadiant"
+    ],
+    "transferEvidence": "Four classes share counter widget and radiant category; user requested shared smaller geometry. Other three not independently screenshot-measured.",
+    "nativeRuntimeScaleRecovered": false,
+    "exactOutlineAlphaRecovered": false
+  }
+}

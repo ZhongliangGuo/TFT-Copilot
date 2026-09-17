@@ -1,0 +1,97 @@
+{
+  "id": "s18-equipment-v5",
+  "sourceResolution": [
+    1920,
+    1080
+  ],
+  "input": "Full-health ally preparation screenshot at original UI scale",
+  "occupiedKeys": "identity v3 predictions; board_0_0..board_3_6 and bench_0_0..bench_0_8",
+  "anchor": "green barBBox top-left from RGB detector",
+  "cropOffsetSize": [
+    -5,
+    11,
+    74,
+    34
+  ],
+  "iconOffsetSizeBySlot": [
+    [
+      0,
+      0,
+      23,
+      23
+    ],
+    [
+      25,
+      0,
+      23,
+      23
+    ],
+    [
+      50,
+      0,
+      23,
+      23
+    ]
+  ],
+  "counterValue": 0,
+  "counterClasses": [
+    "ArchangelsStaff",
+    "Artifact_MogulsMail",
+    "Artifact_NavoriFlickerblade",
+    "Artifact_SeekersArmguard",
+    "GuinsoosRageblade",
+    "KrakensFury",
+    "TitansResolve",
+    "TFT5_Item_ArchangelsStaffRadiant",
+    "TFT5_Item_TitansResolveRadiant",
+    "TFT5_Item_RunaansHurricaneRadiant",
+    "TFT5_Item_GuinsoosRagebladeRadiant"
+  ],
+  "explicitNoCounter": [
+    "Artifact_BlightingJewel"
+  ],
+  "boxes": "xywh, half-open right/bottom; union(icon,counter) for YOLO target",
+  "noCounterBoxSize": [
+    23,
+    23
+  ],
+  "yoloNormalization": [
+    74,
+    34
+  ],
+  "modelClasses": 137,
+  "negative": "ready and verified empty equipment list => empty label text",
+  "unresolved": "not_found/ambiguous/shared_candidate/irregular_health_bar/neighbor_hud_overlap are not negative labels",
+  "identityAndStars": "unchanged v3",
+  "fixedSlotsFile": "regions.json",
+  "trainInferenceTransform": "same imgsz/resize/letterbox; invert actual scale and padding before adding crop origin",
+  "preprocessingModule": "hud_equipment_v5.py",
+  "exactNativeFont": false,
+  "datasetVersion": "v5.1",
+  "regularCounterOffsetSize": [
+    5,
+    14,
+    11,
+    15
+  ],
+  "radiantCounterOffsetSize": [
+    7,
+    15,
+    9,
+    12
+  ],
+  "regularCounterBoxSize": [
+    23,
+    29
+  ],
+  "radiantCounterBoxSize": [
+    23,
+    27
+  ],
+  "radiantCounterClasses": [
+    "TFT5_Item_ArchangelsStaffRadiant",
+    "TFT5_Item_GuinsoosRagebladeRadiant",
+    "TFT5_Item_RunaansHurricaneRadiant",
+    "TFT5_Item_TitansResolveRadiant"
+  ]
+}

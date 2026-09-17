@@ -1,0 +1,29 @@
+{
+  "_说明": "羁绊召唤/生成的可放置棋子, 不在商店购买, CDragon 没有独立棋子记录(仅羁绊文本引用)。手工维护。knowledge.py 作为 kind='summon' 载入, 不计入羁绊档位、不进阵容码。",
+  "units": [
+    {
+      "name": "石皮树",
+      "apiName": "DA_Elderwood18_StonebarkTree",
+      "source_trait": "永恒之森",
+      "summoned": true,
+      "buyable": false,
+      "note": "永恒之森 3 档获得1棵、5档第二棵并加生命值。前排肉盾, 随羁绊档位升星(9档2星/11档3星)。"
+    },
+    {
+      "name": "生命花",
+      "apiName": "DA_Elderwood18_Lifeblossom",
+      "source_trait": "永恒之森",
+      "summoned": true,
+      "buyable": false,
+      "note": "永恒之森 3 档获得。辅助/回复型植物, 随羁绊档位升星。"
+    },
+    {
+      "name": "深林守卫",
+      "apiName": "DA_Elderwood18_Protector",
+      "source_trait": "永恒之森",
+      "summoned": true,
+      "buyable": false,
+      "note": "永恒之森 7 档获得。守护型植物, 随羁绊档位升星。"
+    }
+  ]
+}

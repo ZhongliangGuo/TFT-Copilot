@@ -1,0 +1,1089 @@
+[
+ {
+  "name": "主宰",
+  "apiName": "DA_Juggernaut18",
+  "desc": "你的队伍获得伤害减免。【主宰】们获得更多。(@MinUnits@) @TeamDurability*100@% 或@JuggernautDurability*100@% (@MinUnits@) @TeamDurability*100@% 或@JuggernautDurability*100@% (@MinUnits@) @TeamDurability*100@% 或@JuggernautDurability*100@%",
+  "thresholds": [
+   2,
+   4,
+   6
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 6,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_juggernaut.tex"
+ },
+ {
+  "name": "召唤师",
+  "apiName": "DA_18_Summoner",
+  "desc": "【召唤师】们会以不同的方式强化其召唤物。【约里克】：+@HealthMult*100@%生命值【阿兹尔】：+@AzirDamageMult*100@%伤害【锋喙鸟】：+@DamageMult*100@%伤害【婕拉】：+@NumExtraAttacks@植物攻击次数(@MinUnits@)强化召唤物(@MinUnits@)每种效果加成提升50%",
+  "thresholds": [
+   2,
+   3
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "DamageMult": 0.4500000476837158
+    }
+   },
+   {
+    "minUnits": 3,
+    "style": 5,
+    "variables": {
+     "DamageMult": 0.4500000476837158
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_summoner.tex"
+ },
+ {
+  "name": "地狱火",
+  "apiName": "DA_18_Inferno",
+  "desc": "【地狱火】的伤害会对敌人施加持续@Duration@秒的灼烧和重伤效果。【地狱火】的灼烧效果可以和其它灼烧效果叠加。(@MinUnits@) @HPBurnPerSecond@%灼烧效果，@WoundPercent@%重伤效果(@MinUnits@)在对战后，你的@LuckySlotCount@个不包含【地狱火】弈子的商店栏位会被引燃，刷新出高一阶的弈子。(@MinUnits@)引燃@LuckySlotCount@个商店栏位，施加@HPBurnPerSecond@%灼烧效果(@MinUnits@)引燃@LuckySlotCount@个商店栏位，施加@HPBurnPerSecond@%灼烧效果",
+  "thresholds": [
+   2,
+   3,
+   5,
+   7
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "Duration": 3.0,
+     "WoundPercent": 33.0
+    }
+   },
+   {
+    "minUnits": 3,
+    "style": 3,
+    "variables": {
+     "Duration": 3.0
+    }
+   },
+   {
+    "minUnits": 5,
+    "style": 5,
+    "variables": {
+     "Duration": 3.0
+    }
+   },
+   {
+    "minUnits": 7,
+    "style": 5,
+    "variables": {
+     "Duration": 3.0
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_inferno.tex"
+ },
+ {
+  "name": "宝石骑士",
+  "apiName": "DA_Emerald18",
+  "desc": "将1名友军拖至你最强大的那个【塔里克】身上即可将他们进行配对，通过【塔里克】的技能为友军提供强大的加成。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_emeraldaspect.tex"
+ },
+ {
+  "name": "宿敌",
+  "apiName": "DA_18_Rival",
+  "desc": "(@MinUnits@)仅在登场了1个【宿敌】时激活。【宿敌】收集参与击杀数，如果参与了对另一名【宿敌】的击杀，获得+3参与击杀数。(@MinUnits@)【宿敌】收集参与击杀数，如果参与了对另一名【宿敌】的击杀，获得+3参与击杀数。参与击杀会使【卡兹克】进化，永久为他提供你从【裁决使】、【迅捷射手】、【狂战士】或【法师】中选择的一项羁绊。每参与@RengarStackReq@次击杀，【雷恩加尔】提供@RengarGold@/@RengarGold_2@/@RengarGold_3@金币。在参与@RengarADStackReq@次击杀后，你的队伍获得@RengarThresholdAD*100@％物理加成，此后每次参与击杀再提升@RengarADPerStack*100@% 。【卡兹克】参与击杀数：0 / 0【雷恩加尔】参与击杀数：0已赚取的金币：0(@MinUnits@)【宿敌】可以同时登场，并且他们的技能可以为彼此提供加成",
+  "thresholds": [
+   1,
+   1,
+   2
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 5,
+    "variables": {}
+   },
+   {
+    "minUnits": 1,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 2,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_rival.tex"
+ },
+ {
+  "name": "峡谷野怪",
+  "apiName": "DA_Riftbeast18",
+  "desc": "(@MinUnits@)使用【阿尔法印记】为1个【峡谷野怪】提供独特的增益(@MinUnits@)每@OverrunCombats@场对战后，你的下一次商店会被【峡谷野怪】们占领。(@MinUnits@)战斗开始时及之后每5秒，【峡谷野怪】们成长并获得@CapstoneAD*100@% @CapstoneAP*100@% @CapstoneAspd*100@% +@CapstoneArmor@ +@CapstoneMR@ +@CapstoneHealth@ +@CapstoneManaRegen@ (@MinUnits@)自然之力！！！+@TeamSize@最大队伍规模",
+  "thresholds": [
+   3,
+   5,
+   7,
+   10
+  ],
+  "effects": [
+   {
+    "minUnits": 3,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 5,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 7,
+    "style": 5,
+    "variables": {}
+   },
+   {
+    "minUnits": 10,
+    "style": 5,
+    "variables": {
+     "TeamSize": 2.0
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_riftbeast.tex"
+ },
+ {
+  "name": "帝王斑蝶",
+  "apiName": "DA_18_Caustic",
+  "desc": "【帝王斑蝶】的伤害会对敌人施加持续@ShredDuration@秒的@ShredPercent@%魔抗击碎与护甲击碎。魔抗击碎：降低魔抗值护甲击碎：降低护甲值。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {
+     "ShredDuration": 4.0,
+     "ShredPercent": 30.0
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_caustic.tex"
+ },
+ {
+  "name": "护卫",
+  "apiName": "DA_18_Defender",
+  "desc": "你的队伍获得@NonDefenderDefenseGain@护甲和魔法抗性。【护卫】获得更多。(@MinUnits@) @DefenderDefenseGain@ (@MinUnits@) @DefenderDefenseGain@ (@MinUnits@) @DefenderDefenseGain@",
+  "thresholds": [
+   2,
+   4,
+   6
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 6,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_defender.tex"
+ },
+ {
+  "name": "斗士",
+  "apiName": "DA_18_Brawler",
+  "desc": "你的队伍获得@BrawlerTeamHealth@最大生命值。【斗士】们获得更多。(@MinUnits@) @BrawlerHealthPercent*100@% (@MinUnits@) @BrawlerHealthPercent*100@% (@MinUnits@) @BrawlerHealthPercent*100@%",
+  "thresholds": [
+   2,
+   4,
+   6
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 6,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_brawler.tex"
+ },
+ {
+  "name": "日蚀骑士",
+  "apiName": "DA_18_Solar",
+  "desc": "(@MinUnits@)你的弈子们获得@ShieldRatio*100@%最大生命值护盾，并造成@BonusMagicDamage*100@%额外魔法伤害。每有1个不同的3星弈子，获得额外加成：1：每有1个3星弈子，提升@PercentIncreasePer3Star*100@%护盾值和魔法伤害。@NumThreeStarThreshold1@：@Threshold1AttackSpeed*100@% 和@Threshold1ArmorMagicResist@ @NumThreeStarThreshold2@：将@Threshold2TrueDamageConversion*100@%额外魔法伤害转换为真实伤害。@NumThreeStarThreshold3@：在战斗期间内每过@Threshold3StarUpPeriod@秒，1个3星弈子飞升至4星。",
+  "thresholds": [
+   3
+  ],
+  "effects": [
+   {
+    "minUnits": 3,
+    "style": 5,
+    "variables": {
+     "BonusMagicDamage": 0.07999999821186066,
+     "ShieldRatio": 0.05000000074505806
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_solar.tex"
+ },
+ {
+  "name": "月华神女",
+  "apiName": "DA_AluneUniqueTrait18",
+  "desc": "你最强大的那个【拉露恩】在每一次施放技能后，推进一次【月相】。当【月相】在弦月或以下时，你的队伍获得@Durability*100@%伤害减免。在弦月之上时，你的队伍获得@DamageAmp*100@%伤害增幅。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {
+     "DamageAmp": 0.07000000029802322,
+     "Durability": 0.06999999284744263
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_attuned.tex"
+ },
+ {
+  "name": "月蚀骑士",
+  "apiName": "DA_18_Lunar",
+  "desc": "【月蚀骑士】弈子们及其邻格友军获得攻击速度和法术加成。【月蚀骑士】弈子们额外获得@LunarMultiplier*100@%。(@MinUnits@) @AttackSpeed*100@% ，@AbilityPower*100@% (@MinUnits@) @AttackSpeed*100@% ，@AbilityPower*100@% (@MinUnits@) @AttackSpeed*100@% ，@AbilityPower*100@% (@MinUnits@) @AttackSpeed*100@% ，@AbilityPower*100@%",
+  "thresholds": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "AbilityPower": 0.07000000029802322,
+     "AttackSpeed": 0.0700000524520874
+    }
+   },
+   {
+    "minUnits": 3,
+    "style": 3,
+    "variables": {
+     "AbilityPower": 0.10000000149011612,
+     "AttackSpeed": 0.10000002384185791
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "AbilityPower": 0.14000000059604645,
+     "AttackSpeed": 0.13999998569488525
+    }
+   },
+   {
+    "minUnits": 5,
+    "style": 5,
+    "variables": {
+     "AbilityPower": 0.18000000715255737,
+     "AttackSpeed": 0.1799999475479126
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_lunar.tex"
+ },
+ {
+  "name": "永恒之森",
+  "apiName": "DA_18_Elderwood",
+  "desc": "获得可放置的【永恒之森】植物。(@MinUnits@)一棵【石皮树】和一株【生命花】。(@MinUnits@)第二棵【石皮树】，并且【石皮树】获得@StonebarkTreeBonusHealth@生命值(@MinUnits@)以及【深林守卫】(@MinUnits@)植物升至2星(@MinUnits@)自然之力！！！植物升至3星，森林拥有了它自己的生命",
+  "thresholds": [
+   3,
+   5,
+   7,
+   9,
+   11
+  ],
+  "effects": [
+   {
+    "minUnits": 3,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 5,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 7,
+    "style": 5,
+    "variables": {}
+   },
+   {
+    "minUnits": 9,
+    "style": 5,
+    "variables": {}
+   },
+   {
+    "minUnits": 11,
+    "style": 6,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_elderwood.tex"
+ },
+ {
+  "name": "法师",
+  "apiName": "DA_18_Spellweaver",
+  "desc": "你的队伍获得@TeamwideAP*100@%法术加成。【法师】们获得更多，每当1个【法师】施放技能时还会额外提升法术加成。(@MinUnits@) @SpellweaverAP*100@% ，每次施放技能+@APPerCast*100@% (@MinUnits@) @SpellweaverAP*100@% ，每次施放技能+@APPerCast*100@% (@MinUnits@) @SpellweaverAP*100@% ，每次施放技能+@APPerCast*100@%",
+  "thresholds": [
+   2,
+   4,
+   6
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "APPerCast": 0.009999999776482582,
+     "TeamwideAP": 0.10000000149011612
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "APPerCast": 0.009999999776482582,
+     "TeamwideAP": 0.10000000149011612
+    }
+   },
+   {
+    "minUnits": 6,
+    "style": 5,
+    "variables": {
+     "APPerCast": 0.019999999552965164,
+     "TeamwideAP": 0.10000000149011612
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_spellweaver.tex"
+ },
+ {
+  "name": "灵魂莲华",
+  "apiName": "DA_18_Blossom",
+  "desc": "在对战后，你的【自然仙灵】将得到强化。【灵魂莲华】弈子们获得物理加成、法术加成和@BonusHealth*100@%最大生命值。(@MinUnits@)【自然仙灵】得到升级，@ADAP*100@% (@MinUnits@)商店每次都会刷新出【自然仙灵】，@ADAP*100@% (@MinUnits@)在购买1个【自然仙灵】后，获得@GoldPerCharmPurchased@ 金币，@ADAP*100@% (@MinUnits@)每回合你可以购买2个【自然仙灵】，@ADAP*100@% (@MinUnits@)自然之力！！！【自然仙灵】的力量满溢而出，@ADAP*100@%",
+  "thresholds": [
+   3,
+   5,
+   7,
+   9,
+   11
+  ],
+  "effects": [
+   {
+    "minUnits": 3,
+    "style": 1,
+    "variables": {
+     "ADAP": 0.11999999731779099,
+     "BonusHealth": 0.10000002384185791
+    }
+   },
+   {
+    "minUnits": 5,
+    "style": 3,
+    "variables": {
+     "ADAP": 0.30000001192092896,
+     "BonusHealth": 0.10000002384185791
+    }
+   },
+   {
+    "minUnits": 7,
+    "style": 5,
+    "variables": {
+     "ADAP": 0.44999998807907104,
+     "BonusHealth": 0.10000002384185791
+    }
+   },
+   {
+    "minUnits": 9,
+    "style": 5,
+    "variables": {
+     "ADAP": 0.5,
+     "BonusHealth": 0.10000002384185791
+    }
+   },
+   {
+    "minUnits": 11,
+    "style": 6,
+    "variables": {
+     "ADAP": 1.0,
+     "BonusHealth": 0.10000002384185791
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_blossom.tex"
+ },
+ {
+  "name": "狂战士",
+  "apiName": "DA_18_Slayer",
+  "desc": "【狂战士】们获得@Omnivamp*100@%全能吸血。此外，【狂战士】们造成额外伤害，对低于@EnemyHealthThreshold*100@%生命值的单位们翻倍。(@MinUnits@) @BonusDamagePercentBase*100@%额外伤害(@MinUnits@) @BonusDamagePercentBase*100@%额外伤害(@MinUnits@) @BonusDamagePercentBase*100@%额外伤害",
+  "thresholds": [
+   2,
+   4,
+   6
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "Omnivamp": 0.10000000149011612
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "Omnivamp": 0.10000000149011612
+    }
+   },
+   {
+    "minUnits": 6,
+    "style": 5,
+    "variables": {
+     "Omnivamp": 0.10000000149011612
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_ravager.tex"
+ },
+ {
+  "name": "猎人",
+  "apiName": "DA_18_Hunter",
+  "desc": "【猎人】获得物理加成。如果1个【猎人】在@HunterDuration@秒内没有切换过目标，他们获得@DamageAmp*100@%伤害增幅。(@MinUnits@) @HunterAD*100@% (@MinUnits@) @HunterAD*100@% (@MinUnits@) @HunterAD*100@% (@MinUnits@) @HunterAD*100@%",
+  "thresholds": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "DamageAmp": 0.10000000149011612
+    }
+   },
+   {
+    "minUnits": 3,
+    "style": 3,
+    "variables": {
+     "DamageAmp": 0.10000000149011612
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "DamageAmp": 0.10000000149011612
+    }
+   },
+   {
+    "minUnits": 5,
+    "style": 5,
+    "variables": {
+     "DamageAmp": 0.10000000149011612
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_hunter.tex"
+ },
+ {
+  "name": "神谕",
+  "apiName": "DA_18_Invoker",
+  "desc": "你的队伍获得法力回复，【神谕】获得更多。(@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@ (@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@ (@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@ (@MinUnits@) @TeamManaRegen@ | @InvokerManaBonus@",
+  "thresholds": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "TeamManaRegen": 1.0
+    }
+   },
+   {
+    "minUnits": 3,
+    "style": 3,
+    "variables": {
+     "TeamManaRegen": 1.0
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "TeamManaRegen": 2.0
+    }
+   },
+   {
+    "minUnits": 5,
+    "style": 5,
+    "variables": {
+     "TeamManaRegen": 2.0
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_invoker.tex"
+ },
+ {
+  "name": "约德尔人和朋友",
+  "apiName": "DA_18_Sprykin",
+  "desc": "获得【毛茸茸大朋友】。将1个【约德尔人和朋友】放置在【毛茸茸大朋友】身上以选择其【骑乘者】。(@MinUnits@) 【骑乘者】获得@HealthIncrease*100@% 和@AttackSpeedIncrease*100@% (@MinUnits@) @HealthIncrease*100@% @AttackSpeedIncrease*100@% ，【毛茸茸大朋友】@TeamwideRatio*100@%的技能加成作用于你的【约德尔人…】弈子们(@MinUnits@) @HealthIncrease*100@% @AttackSpeedIncrease*100@% ，【毛茸茸大朋友】@TeamwideRatio*100@%的技能加成作用于你的【约德尔人…】弈子们。",
+  "thresholds": [
+   3,
+   5,
+   7
+  ],
+  "effects": [
+   {
+    "minUnits": 3,
+    "style": 1,
+    "variables": {
+     "AttackSpeedIncrease": 0.1499999761581421,
+     "HealthIncrease": 0.1499999761581421
+    }
+   },
+   {
+    "minUnits": 5,
+    "style": 3,
+    "variables": {
+     "AttackSpeedIncrease": 0.3500000238418579,
+     "HealthIncrease": 0.3999999761581421
+    }
+   },
+   {
+    "minUnits": 7,
+    "style": 5,
+    "variables": {
+     "AttackSpeedIncrease": 0.4500000476837158,
+     "HealthIncrease": 0.4500000476837158
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_sprykin.tex"
+ },
+ {
+  "name": "绝命花妖",
+  "apiName": "DA_FloraFatalis18",
+  "desc": "【绝命花妖】弈子们在参与击杀时收割敌人，获得：(@MinUnits@) @Mana@法力值(@MinUnits@)并为最低生命值的的友军治疗@PercentHeal*100@%最大生命值。",
+  "thresholds": [
+   1,
+   2
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 1,
+    "variables": {
+     "Mana": 10.0
+    }
+   },
+   {
+    "minUnits": 2,
+    "style": 5,
+    "variables": {
+     "PercentHeal": 0.07999999821186066
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_florafatalis.tex"
+ },
+ {
+  "name": "翠神",
+  "apiName": "DA_18_Greenfather",
+  "desc": "你最强大的那个【艾翁】在施放技能时获得@SeedsPerCast@颗种子，且每场对战额外获得@CombatStartSeeds@颗。【艾翁】可消耗@SeedsToGrowHex@颗种子在你的棋盘上培育1个格子，为格内的住民提供加成。种子数：0/@SeedsToGrowHex@当前生物群落：",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_greenfather.tex"
+ },
+ {
+  "name": "自然之力！大元素使",
+  "apiName": "DA_18_LuxUniqueTrait",
+  "desc": "在备战席或棋盘上拥有1个【自然之力！！！大元素使】时，会将你商店中所有其他【自然之力！！！大元素使】转换为和这个【自然之力！！！大元素使】相同的羁绊。【自然之力！！！大元素使】为选定的羁绊提供+2计数。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_avatar.tex"
+ },
+ {
+  "name": "花仙子",
+  "apiName": "DA_18_Fae",
+  "desc": "你的队伍的伤害、治疗强度和护盾强度会吸引【皮克斯仙灵】。每个【皮克斯仙灵】为【花仙子】弈子们提供物理加成和法术加成，在其生命值降至@HealThreshold*100@%时，他们基于【皮克斯仙灵】数量治疗生命值。(@MinUnits@) @ADAP@%和@Heal@%治疗强度。(@MinUnits@) @ADAP@%和@Heal@%治疗强度。在吸引了7个【皮克斯仙灵】后，转而开始吸引可提供金币的【黄金皮克斯仙灵】。",
+  "thresholds": [
+   2,
+   4
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "ADAP": 5.0,
+     "Heal": 2.5,
+     "HealThreshold": 0.5
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 5,
+    "variables": {
+     "ADAP": 8.0,
+     "Heal": 4.0,
+     "HealThreshold": 0.5
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_fae.tex"
+ },
+ {
+  "name": "荆棘之兴",
+  "apiName": "DA_18_ZyraUniqueTrait",
+  "desc": "你的队伍获得@BaseDurability*100@%伤害减免，在@PlantNumThreshold@或以上株【婕拉】的植物存活时，该数值提升至@IncreasedDurability*100@%。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {
+     "BaseDurability": 0.050000011920928955
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_zyraorigin.tex"
+ },
+ {
+  "name": "裁决使",
+  "apiName": "DA_18_Executioner",
+  "desc": "(@MinUnits@)【裁决使】们获得【技能暴击】和@CritChance*100@%暴击几率。(@MinUnits@)此外，敌人会被施加流血效果，在@BleedDuration@秒内持续受到@BonusBleedPercent*100@%额外真实伤害。(@MinUnits@)流血效果造成的伤害提升@BonusBleedPercent*100@%。",
+  "thresholds": [
+   2,
+   3,
+   4
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "CritChance": 0.15000000596046448
+    }
+   },
+   {
+    "minUnits": 3,
+    "style": 3,
+    "variables": {
+     "BleedDuration": 3.0
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_executioner.tex"
+ },
+ {
+  "name": "赏金猎人",
+  "apiName": "DA_DravenUniqueTrait18",
+  "desc": "选择1个【悬赏令】。你最强大的那个【德莱文】可以推进【悬赏令】进度以获取其奖励。在完成1个【悬赏令】后，能够选择另一个。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_bountyseeker.tex"
+ },
+ {
+  "name": "迅捷射手",
+  "apiName": "DA_18_Rapidfire",
+  "desc": "你的队伍获得@TeamAS*100@%攻击速度。【迅捷射手】弈子们每次攻击还会获得额外攻击速度，至多叠加@MaxStacks@层。(@MinUnits@)每次攻击+@ASPerAttack*100@% (@MinUnits@)每次攻击+@ASPerAttack*100@% (@MinUnits@)每次攻击+@ASPerAttack*100@% (@MinUnits@)每次攻击+@ASPerAttack*100@%",
+  "thresholds": [
+   2,
+   3,
+   4,
+   5
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "ASperAttack": 0.029999971389770508,
+     "MaxStacks": 10.0
+    }
+   },
+   {
+    "minUnits": 3,
+    "style": 3,
+    "variables": {
+     "ASperAttack": 0.04999995231628418,
+     "MaxStacks": 10.0
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "ASperAttack": 0.09000003337860107,
+     "MaxStacks": 10.0
+    }
+   },
+   {
+    "minUnits": 5,
+    "style": 5,
+    "variables": {
+     "ASperAttack": 0.1499999761581421,
+     "MaxStacks": 10.0
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_rapidfire.tex"
+ },
+ {
+  "name": "远古树精",
+  "apiName": "DA_18_Maokai_UniqueTrait",
+  "desc": "每当@UniqueTraitHexRange@格内的1名敌人阵亡时，你最强大的那个【远古树精】弈子获得@UniqueTraitHealthPerStack@永久最大生命值。当前：0",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_oldgrowth.tex"
+ },
+ {
+  "name": "重装战士",
+  "apiName": "DA_18_Vanguard",
+  "desc": "战斗开始时及降至@HealthThreshold*100@%生命值时，【重装战士】们获得持续@ShieldDuration@秒的最大生命值护盾。(@MinUnits@) @MaxHealthShield*100@%最大生命值(@MinUnits@) @MaxHealthShield*100@%最大生命值(@MinUnits@) @MaxHealthShield*100@%最大生命值。在拥有护盾时获得@DurabilityIncrease*100@%伤害减免。",
+  "thresholds": [
+   2,
+   4,
+   6
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "HealthThreshold": 0.5,
+     "MaxHealthShield": 0.18000000715255737,
+     "ShieldDuration": 10.0
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "HealthThreshold": 0.5,
+     "MaxHealthShield": 0.30000001192092896,
+     "ShieldDuration": 10.0
+    }
+   },
+   {
+    "minUnits": 6,
+    "style": 5,
+    "variables": {
+     "HealthThreshold": 0.5,
+     "MaxHealthShield": 0.4000000059604645,
+     "ShieldDuration": 10.0
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_vanguard.tex"
+ },
+ {
+  "name": "野兽之灵",
+  "apiName": "DA_Primal18",
+  "desc": "在四种【兽灵赐福】中选择一项获取。(@MinUnits@)(@MinUnits@)",
+  "thresholds": [
+   2,
+   4
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 4,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_primal.tex"
+ },
+ {
+  "name": "顶级掠食者",
+  "apiName": "DA_18_ApexPredator",
+  "desc": "【远古巨龙】占用2个弈子栏位，并提供+2【峡谷野怪】羁绊。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_apexpredator.tex"
+ },
+ {
+  "name": "魔女",
+  "apiName": "DA_18_Coven",
+  "desc": "通过击杀弈子们收集【魔女精粹】，输掉玩家对战回合时还会增加更多。初始值为@EssenceForRitualTooltip@【魔女精粹】，选择将【魔女精粹】兑换为奖励或是继续收集【魔女精粹】。每项奖励所需的【魔女精粹】数量都会进一步增加。(@MinUnits@)每次击杀+@EssencePerDeath@【魔女精粹】，每次失败+@EssencePerLoss@【魔女精粹】(@MinUnits@)每次击杀+@EssencePerDeath@【魔女精粹】，每次失败+@EssencePerLoss@【魔女精粹】(@MinUnits@)每次击杀+@EssencePerDeath@【魔女精粹】，每次失败+@EssencePerLoss@【魔女精粹】(@MinUnits@)每次击杀+@EssencePerDeath@【魔女精粹】，每次失败+@EssencePerLoss@【魔女精粹】",
+  "thresholds": [
+   3,
+   4,
+   5,
+   7
+  ],
+  "effects": [
+   {
+    "minUnits": 3,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 5,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 7,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_coven.tex"
+ },
+ {
+  "name": "魔岩巨兽",
+  "apiName": "DA_18_Battlemage",
+  "desc": "每成为1名敌人的目标，【魔岩巨兽】获得@Resists@护甲和魔法抗性。",
+  "thresholds": [
+   1
+  ],
+  "effects": [
+   {
+    "minUnits": 1,
+    "style": 4,
+    "variables": {
+     "Resists": 10.0
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_monolith.tex"
+ },
+ {
+  "name": "魔战士",
+  "apiName": "DA_18_Adaptor",
+  "desc": "固有能力：【魔战士】的技能将根据其物理加成和法术加成中较高的属性转换形态。【魔战士】们获得法术加成或物理加成，取决于两种加成中哪一者更高。(@MinUnits@) @ADAPGain*100@%或(@MinUnits@) @ADAPGain*100@%或(@MinUnits@) @ADAPGain*100@%或",
+  "thresholds": [
+   2,
+   3,
+   4
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {}
+   },
+   {
+    "minUnits": 3,
+    "style": 3,
+    "variables": {}
+   },
+   {
+    "minUnits": 4,
+    "style": 5,
+    "variables": {}
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_adaptor.tex"
+ },
+ {
+  "name": "黑荆棘",
+  "apiName": "DA_18_Blackthorn",
+  "desc": "战斗开始前，位于【黑荆棘格】内的友军被献祭，为你的弈子们提供生命值。【黑荆棘】弈子们基于【祭品】的定位、星级和费用，获得额外属性，(@MinUnits@) @Health@ (@MinUnits@) @Health@ ；额外加成提升@StatMultiplier*100@%(@MinUnits@) @Health@ ；额外加成提升@StatMultiplier*100@%",
+  "thresholds": [
+   2,
+   4,
+   6
+  ],
+  "effects": [
+   {
+    "minUnits": 2,
+    "style": 1,
+    "variables": {
+     "Health": 175.0
+    }
+   },
+   {
+    "minUnits": 4,
+    "style": 3,
+    "variables": {
+     "Health": 350.0,
+     "StatMultiplier": 0.2999999523162842
+    }
+   },
+   {
+    "minUnits": 6,
+    "style": 5,
+    "variables": {
+     "Health": 600.0,
+     "StatMultiplier": 0.6000000238418579
+    }
+   }
+  ],
+  "in_use": true,
+  "icon": "assets/ux/traiticons/trait_icon_18_oldgod.tex"
+ },
+ {
+  "name": "日月双蚀",
+  "apiName": "DA_18_Eclipse",
+  "desc": "战斗开始@DelaySeconds@秒后，【日月双蚀】处决最低生命值的敌人，每@EclipseBeamPeriod@秒重复一次。",
+  "thresholds": [
+   null
+  ],
+  "effects": [
+   {
+    "minUnits": null,
+    "style": 1,
+    "variables": {
+     "DelaySeconds": 10.0
+    }
+   }
+  ],
+  "in_use": false,
+  "icon": "assets/ux/traiticons/trait_icon_18_eclipse.tex"
+ }
+]

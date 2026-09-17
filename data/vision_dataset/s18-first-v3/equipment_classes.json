@@ -1,0 +1,707 @@
+[
+  {
+    "index": 0,
+    "id": "AdaptiveHelm",
+    "name": "适应性头盔"
+  },
+  {
+    "index": 1,
+    "id": "ArchangelsStaff",
+    "name": "ArchangelsStaff"
+  },
+  {
+    "index": 2,
+    "id": "Artifact_AegisOfDawn",
+    "name": "Artifact_AegisOfDawn"
+  },
+  {
+    "index": 3,
+    "id": "Artifact_AegisOfDusk",
+    "name": "Artifact_AegisOfDusk"
+  },
+  {
+    "index": 4,
+    "id": "Artifact_BlightingJewel",
+    "name": "Artifact_BlightingJewel"
+  },
+  {
+    "index": 5,
+    "id": "Artifact_Dawncore",
+    "name": "Artifact_Dawncore"
+  },
+  {
+    "index": 6,
+    "id": "Artifact_EternalPact",
+    "name": "Artifact_EternalPact"
+  },
+  {
+    "index": 7,
+    "id": "Artifact_Fishbones",
+    "name": "Artifact_Fishbones"
+  },
+  {
+    "index": 8,
+    "id": "Artifact_ForbiddenIdol",
+    "name": "Artifact_ForbiddenIdol"
+  },
+  {
+    "index": 9,
+    "id": "Artifact_GamblersBlade",
+    "name": "Artifact_GamblersBlade"
+  },
+  {
+    "index": 10,
+    "id": "Artifact_GoldCollector",
+    "name": "Artifact_GoldCollector"
+  },
+  {
+    "index": 11,
+    "id": "Artifact_HellfireHatchet",
+    "name": "Artifact_HellfireHatchet"
+  },
+  {
+    "index": 12,
+    "id": "Artifact_HorizonFocus",
+    "name": "Artifact_HorizonFocus"
+  },
+  {
+    "index": 13,
+    "id": "Artifact_Hullcrusher",
+    "name": "Artifact_Hullcrusher"
+  },
+  {
+    "index": 14,
+    "id": "Artifact_InfinityForce",
+    "name": "Artifact_InfinityForce"
+  },
+  {
+    "index": 15,
+    "id": "Artifact_LichBane",
+    "name": "Artifact_LichBane"
+  },
+  {
+    "index": 16,
+    "id": "Artifact_LightshieldCrest",
+    "name": "Artifact_LightshieldCrest"
+  },
+  {
+    "index": 17,
+    "id": "Artifact_LudensTempest",
+    "name": "Artifact_LudensTempest"
+  },
+  {
+    "index": 18,
+    "id": "Artifact_Manazane",
+    "name": "Artifact_Manazane"
+  },
+  {
+    "index": 19,
+    "id": "Artifact_Mittens",
+    "name": "神器 · Mittens"
+  },
+  {
+    "index": 20,
+    "id": "Artifact_MogulsMail",
+    "name": "Artifact_MogulsMail"
+  },
+  {
+    "index": 21,
+    "id": "Artifact_NavoriFlickerblade",
+    "name": "Artifact_NavoriFlickerblade"
+  },
+  {
+    "index": 22,
+    "id": "Artifact_RapidFireCannon",
+    "name": "Artifact_RapidFireCannon"
+  },
+  {
+    "index": 23,
+    "id": "Artifact_SeekersArmguard",
+    "name": "Artifact_SeekersArmguard"
+  },
+  {
+    "index": 24,
+    "id": "Artifact_SilvermereDawn",
+    "name": "Artifact_SilvermereDawn"
+  },
+  {
+    "index": 25,
+    "id": "Artifact_StatikkShiv",
+    "name": "Artifact_StatikkShiv"
+  },
+  {
+    "index": 26,
+    "id": "Artifact_TalismanOfAscension",
+    "name": "Artifact_TalismanOfAscension"
+  },
+  {
+    "index": 27,
+    "id": "Artifact_TheIndomitable",
+    "name": "Artifact_TheIndomitable"
+  },
+  {
+    "index": 28,
+    "id": "Artifact_TitanicHydra",
+    "name": "Artifact_TitanicHydra"
+  },
+  {
+    "index": 29,
+    "id": "Artifact_VoidGauntlet",
+    "name": "Artifact_VoidGauntlet"
+  },
+  {
+    "index": 30,
+    "id": "Artifact_WitsEnd",
+    "name": "Artifact_WitsEnd"
+  },
+  {
+    "index": 31,
+    "id": "Artifact_ZhonyasParadox",
+    "name": "Artifact_ZhonyasParadox"
+  },
+  {
+    "index": 32,
+    "id": "Bloodthirster",
+    "name": "饮血剑"
+  },
+  {
+    "index": 33,
+    "id": "BlueBuff",
+    "name": "蓝霸符"
+  },
+  {
+    "index": 34,
+    "id": "BrambleVest",
+    "name": "BrambleVest"
+  },
+  {
+    "index": 35,
+    "id": "Component_BFSword",
+    "name": "Component_BFSword"
+  },
+  {
+    "index": 36,
+    "id": "Component_ChainVest",
+    "name": "Component_ChainVest"
+  },
+  {
+    "index": 37,
+    "id": "Component_FryingPan",
+    "name": "Component_FryingPan"
+  },
+  {
+    "index": 38,
+    "id": "Component_GiantsBelt",
+    "name": "Component_GiantsBelt"
+  },
+  {
+    "index": 39,
+    "id": "Component_NeedlesslyLargeRod",
+    "name": "Component_NeedlesslyLargeRod"
+  },
+  {
+    "index": 40,
+    "id": "Component_NegatronCloak",
+    "name": "Component_NegatronCloak"
+  },
+  {
+    "index": 41,
+    "id": "Component_RecurveBow",
+    "name": "Component_RecurveBow"
+  },
+  {
+    "index": 42,
+    "id": "Component_SparringGloves",
+    "name": "Component_SparringGloves"
+  },
+  {
+    "index": 43,
+    "id": "Component_Spatula",
+    "name": "Component_Spatula"
+  },
+  {
+    "index": 44,
+    "id": "Component_TearOfTheGoddess",
+    "name": "女神之泪"
+  },
+  {
+    "index": 45,
+    "id": "Crownguard",
+    "name": "Crownguard"
+  },
+  {
+    "index": 46,
+    "id": "Deathblade",
+    "name": "Deathblade"
+  },
+  {
+    "index": 47,
+    "id": "DragonsClaw",
+    "name": "DragonsClaw"
+  },
+  {
+    "index": 48,
+    "id": "EdgeOfNight",
+    "name": "EdgeOfNight"
+  },
+  {
+    "index": 49,
+    "id": "Evenshroud",
+    "name": "Evenshroud"
+  },
+  {
+    "index": 50,
+    "id": "GargoyleStoneplate",
+    "name": "GargoyleStoneplate"
+  },
+  {
+    "index": 51,
+    "id": "GiantSlayer",
+    "name": "巨人杀手"
+  },
+  {
+    "index": 52,
+    "id": "GuinsoosRageblade",
+    "name": "鬼索的狂暴之刃"
+  },
+  {
+    "index": 53,
+    "id": "HandOfJustice",
+    "name": "正义之手"
+  },
+  {
+    "index": 54,
+    "id": "HextechGunblade",
+    "name": "HextechGunblade"
+  },
+  {
+    "index": 55,
+    "id": "InfinityEdge",
+    "name": "无尽之刃"
+  },
+  {
+    "index": 56,
+    "id": "IonicSpark",
+    "name": "离子火花"
+  },
+  {
+    "index": 57,
+    "id": "JeweledGauntlet",
+    "name": "珠光护手"
+  },
+  {
+    "index": 58,
+    "id": "KrakensFury",
+    "name": "KrakensFury"
+  },
+  {
+    "index": 59,
+    "id": "LastWhisper",
+    "name": "最后的轻语"
+  },
+  {
+    "index": 60,
+    "id": "Morellonomicon",
+    "name": "Morellonomicon"
+  },
+  {
+    "index": 61,
+    "id": "NashorsTooth",
+    "name": "纳什之牙"
+  },
+  {
+    "index": 62,
+    "id": "ProtectorsVow",
+    "name": "ProtectorsVow"
+  },
+  {
+    "index": 63,
+    "id": "Quicksilver",
+    "name": "Quicksilver"
+  },
+  {
+    "index": 64,
+    "id": "RabadonsDeathcap",
+    "name": "灭世者的死亡之帽"
+  },
+  {
+    "index": 65,
+    "id": "RedBuff",
+    "name": "红霸符"
+  },
+  {
+    "index": 66,
+    "id": "SpearOfShojin",
+    "name": "朔极之矛"
+  },
+  {
+    "index": 67,
+    "id": "SpiritVisage",
+    "name": "SpiritVisage"
+  },
+  {
+    "index": 68,
+    "id": "SteadfastHeart",
+    "name": "坚定之心"
+  },
+  {
+    "index": 69,
+    "id": "SteraksGage",
+    "name": "斯特拉克的挑战护手"
+  },
+  {
+    "index": 70,
+    "id": "StrikersFlail",
+    "name": "StrikersFlail"
+  },
+  {
+    "index": 71,
+    "id": "SunfireCape",
+    "name": "日炎斗篷"
+  },
+  {
+    "index": 72,
+    "id": "TacticiansCape",
+    "name": "TacticiansCape"
+  },
+  {
+    "index": 73,
+    "id": "TacticiansCrown",
+    "name": "TacticiansCrown"
+  },
+  {
+    "index": 74,
+    "id": "TacticiansShield",
+    "name": "TacticiansShield"
+  },
+  {
+    "index": 75,
+    "id": "ThiefsGloves",
+    "name": "窃贼手套"
+  },
+  {
+    "index": 76,
+    "id": "TitansResolve",
+    "name": "泰坦的坚决"
+  },
+  {
+    "index": 77,
+    "id": "VoidStaff",
+    "name": "VoidStaff"
+  },
+  {
+    "index": 78,
+    "id": "WarmogsArmor",
+    "name": "狂徒铠甲"
+  },
+  {
+    "index": 79,
+    "id": "DA_18_EmblemJuggernaut",
+    "name": "主宰纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 80,
+    "id": "DA_18_EmblemInferno",
+    "name": "地狱火纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 81,
+    "id": "DA_18_EmblemDefender",
+    "name": "护卫纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 82,
+    "id": "DA_18_EmblemBrawler",
+    "name": "斗士纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 83,
+    "id": "DA_18_EmblemLunar",
+    "name": "月蚀骑士纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 84,
+    "id": "DA_18_EmblemElderwood",
+    "name": "永恒之森纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 85,
+    "id": "DA_18_EmblemSpellweaver",
+    "name": "法师纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 86,
+    "id": "DA_18_EmblemBlossom",
+    "name": "灵魂莲华纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 87,
+    "id": "DA_18_EmblemSlayer",
+    "name": "狂战士纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 88,
+    "id": "DA_18_EmblemHunter",
+    "name": "猎人纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 89,
+    "id": "DA_18_EmblemInvoker",
+    "name": "神谕纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 90,
+    "id": "DA_18_EmblemSprykin",
+    "name": "约德尔人和朋友纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 91,
+    "id": "DA_18_EmblemFloraFatalis",
+    "name": "绝命花妖纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 92,
+    "id": "DA_18_EmblemFae",
+    "name": "花仙子纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 93,
+    "id": "DA_18_EmblemExecutioner",
+    "name": "裁决使纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 94,
+    "id": "DA_18_EmblemRapidfire",
+    "name": "迅捷射手纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 95,
+    "id": "DA_18_EmblemVanguard",
+    "name": "重装战士纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 96,
+    "id": "DA_18_EmblemPrimal",
+    "name": "野兽之灵纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 97,
+    "id": "DA_18_EmblemCoven",
+    "name": "魔女纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 98,
+    "id": "DA_18_EmblemBlackthorn",
+    "name": "黑荆棘纹章",
+    "category": "emblem"
+  },
+  {
+    "index": 99,
+    "id": "TFT5_Item_CrownguardRadiant",
+    "name": "光明版冕卫"
+  },
+  {
+    "index": 100,
+    "id": "TFT5_Item_FrozenHeartRadiant",
+    "name": "光明版圣盾使的誓约"
+  },
+  {
+    "index": 101,
+    "id": "TFT5_Item_NightHarvesterRadiant",
+    "name": "光明版坚定之心"
+  },
+  {
+    "index": 102,
+    "id": "TFT5_Item_GuardianAngelRadiant",
+    "name": "光明版夜之锋刃"
+  },
+  {
+    "index": 103,
+    "id": "TFT5_Item_ArchangelsStaffRadiant",
+    "name": "光明版大天使之杖"
+  },
+  {
+    "index": 104,
+    "id": "TFT5_Item_GiantSlayerRadiant",
+    "name": "光明版巨人杀手"
+  },
+  {
+    "index": 105,
+    "id": "TFT5_Item_DragonsClawRadiant",
+    "name": "光明版巨龙之爪"
+  },
+  {
+    "index": 106,
+    "id": "TFT5_Item_TrapClawRadiant",
+    "name": "光明版强袭者的链枷"
+  },
+  {
+    "index": 107,
+    "id": "TFT5_Item_RedemptionRadiant",
+    "name": "光明版振奋盔甲"
+  },
+  {
+    "index": 108,
+    "id": "TFT5_Item_SteraksGageRadiant",
+    "name": "光明版斯特拉克的挑战护手"
+  },
+  {
+    "index": 109,
+    "id": "TFT5_Item_InfinityEdgeRadiant",
+    "name": "光明版无尽之刃"
+  },
+  {
+    "index": 110,
+    "id": "TFT5_Item_SunfireCapeRadiant",
+    "name": "光明版日炎斗篷"
+  },
+  {
+    "index": 111,
+    "id": "TFT5_Item_LastWhisperRadiant",
+    "name": "光明版最后的轻语"
+  },
+  {
+    "index": 112,
+    "id": "TFT5_Item_SpearOfShojinRadiant",
+    "name": "光明版朔极之矛"
+  },
+  {
+    "index": 113,
+    "id": "TFT5_Item_BrambleVestRadiant",
+    "name": "光明版棘刺背心"
+  },
+  {
+    "index": 114,
+    "id": "TFT5_Item_HandOfJusticeRadiant",
+    "name": "光明版正义之手"
+  },
+  {
+    "index": 115,
+    "id": "TFT5_Item_DeathbladeRadiant",
+    "name": "光明版死亡之刃"
+  },
+  {
+    "index": 116,
+    "id": "TFT5_Item_QuicksilverRadiant",
+    "name": "光明版水银"
+  },
+  {
+    "index": 117,
+    "id": "TFT5_Item_TitansResolveRadiant",
+    "name": "光明版泰坦的坚决"
+  },
+  {
+    "index": 118,
+    "id": "TFT5_Item_HextechGunbladeRadiant",
+    "name": "光明版海克斯科技枪刃"
+  },
+  {
+    "index": 119,
+    "id": "TFT5_Item_RunaansHurricaneRadiant",
+    "name": "光明版海妖之怒"
+  },
+  {
+    "index": 120,
+    "id": "TFT5_Item_RabadonsDeathcapRadiant",
+    "name": "光明版灭世者的死亡之帽"
+  },
+  {
+    "index": 121,
+    "id": "TFT5_Item_WarmogsArmorRadiant",
+    "name": "光明版狂徒铠甲"
+  },
+  {
+    "index": 122,
+    "id": "TFT5_Item_JeweledGauntletRadiant",
+    "name": "光明版珠光护手"
+  },
+  {
+    "index": 123,
+    "id": "TFT5_Item_GargoyleStoneplateRadiant",
+    "name": "光明版石像鬼石板甲"
+  },
+  {
+    "index": 124,
+    "id": "TFT5_Item_IonicSparkRadiant",
+    "name": "光明版离子火花"
+  },
+  {
+    "index": 125,
+    "id": "TFT5_Item_ThiefsGlovesRadiant",
+    "name": "光明版窃贼手套"
+  },
+  {
+    "index": 126,
+    "id": "TFT5_Item_RapidFirecannonRadiant",
+    "name": "光明版红霸符"
+  },
+  {
+    "index": 127,
+    "id": "TFT5_Item_LeviathanRadiant",
+    "name": "光明版纳什之牙"
+  },
+  {
+    "index": 128,
+    "id": "TFT5_Item_MorellonomiconRadiant",
+    "name": "光明版莫雷洛秘典"
+  },
+  {
+    "index": 129,
+    "id": "TFT5_Item_BlueBuffRadiant",
+    "name": "光明版蓝霸符"
+  },
+  {
+    "index": 130,
+    "id": "TFT5_Item_SpectralGauntletRadiant",
+    "name": "光明版薄暮法袍"
+  },
+  {
+    "index": 131,
+    "id": "TFT5_Item_StatikkShivRadiant",
+    "name": "光明版虚空之杖"
+  },
+  {
+    "index": 132,
+    "id": "TFT5_Item_AdaptiveHelmRadiant",
+    "name": "光明版适应性头盔"
+  },
+  {
+    "index": 133,
+    "id": "TFT5_Item_BloodthirsterRadiant",
+    "name": "光明版饮血剑"
+  },
+  {
+    "index": 134,
+    "id": "TFT5_Item_GuinsoosRagebladeRadiant",
+    "name": "光明版鬼索的狂暴之刃"
+  },
+  {
+    "index": 135,
+    "id": "TFT11_Item_ThiefsGlovesSupport",
+    "name": "辅助手套"
+  },
+  {
+    "index": 136,
+    "id": "TFT_Item_SupportKnightsVow",
+    "name": "骑士之誓"
+  }
+]

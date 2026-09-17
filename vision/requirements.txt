@@ -1,0 +1,10 @@
+# Vision service runtime deps (onnxruntime backend, no torch/torchvision/ultralytics needed at all).
+onnxruntime          # CPU build; swap for onnxruntime-gpu to use an NVIDIA GPU, no code changes needed
+opencv-python
+numpy
+pillow
+rapidocr-onnxruntime  # HUD text OCR, itself onnxruntime-based
+scipy                 # ndimage, used by hud_regions.py for health-bar detection
+fastapi               # vision API service
+uvicorn
+python-multipart      # multipart upload for /api/recognize

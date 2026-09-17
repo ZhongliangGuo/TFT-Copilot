@@ -1,0 +1,40 @@
+{
+  "version": "s18-fixed-1920-v4",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "mode": "ally-preparation-full-health",
+  "positions": 37,
+  "boardPositions": 28,
+  "benchPositions": 9,
+  "identitySize": [
+    180,
+    205
+  ],
+  "focusSize": [
+    130,
+    120
+  ],
+  "anchorSigma": 10,
+  "anchorPosition": "target_point in each manifest row",
+  "starsSize": [
+    40,
+    26
+  ],
+  "equipmentSize": [
+    74,
+    26
+  ],
+  "starsClassToValue": [
+    1,
+    2,
+    3
+  ],
+  "equipmentLabels": "YOLO normalized cx cy w h; empty txt is valid negative",
+  "unresolvedHud": "unknown; never no-equipment or one-star",
+  "calibration": "regions.json",
+  "implementation": "preprocess.py",
+  "classVocabulary": "../classes.json",
+  "equipmentVocabulary": "../equipment_classes.json"
+}

@@ -1,0 +1,191 @@
+{
+ "_note": "HUD 固定区域 (1920x1080 原生UI), 用户手圈。box=[x,y,w,h]。阶段/血量两种模式通用。",
+ "resolution": [
+  1920,
+  1080
+ ],
+ "ally": {
+  "stage": {
+   "box": [
+    764,
+    6,
+    56,
+    23
+   ],
+   "type": "stage"
+  },
+  "level": {
+   "box": [
+    346,
+    880,
+    77,
+    28
+   ],
+   "type": "level"
+  },
+  "xp": {
+   "box": [
+    450,
+    880,
+    67,
+    28
+   ],
+   "type": "frac"
+  },
+  "gold": {
+   "box": [
+    982,
+    881,
+    77,
+    30
+   ],
+   "type": "gold"
+  },
+  "streak": {
+   "box": [
+    1107,
+    876,
+    61,
+    29
+   ],
+   "type": "streak",
+   "desc": "连胜(橙火焰)/连败(蓝火焰)+数字"
+  },
+  "health": {
+   "box": [
+    1660,
+    154,
+    256,
+    653
+   ],
+   "type": "health"
+  },
+  "shop_1": {
+   "box": [
+    555,
+    1042,
+    144,
+    30
+   ],
+   "type": "champion"
+  },
+  "shop_2": {
+   "box": [
+    756,
+    1042,
+    148,
+    26
+   ],
+   "type": "champion"
+  },
+  "shop_3": {
+   "box": [
+    958,
+    1042,
+    147,
+    26
+   ],
+   "type": "champion"
+  },
+  "shop_4": {
+   "box": [
+    1162,
+    1043,
+    149,
+    25
+   ],
+   "type": "champion"
+  },
+  "shop_5": {
+   "box": [
+    1363,
+    1043,
+    149,
+    26
+   ],
+   "type": "champion_or_sprite"
+  },
+  "bench_items": {
+   "type": "item_icons_grid",
+   "grid": {
+    "origin": [
+     8,
+     258
+    ],
+    "slot": 50,
+    "pitch": 55,
+    "cols": 2,
+    "rows": 10,
+    "inner_pad": 6
+   },
+   "desc": "备战散装备 2列×10槽; embedding匹配137参考(见 bench_items.py); 只做正常装备, 可叠层/不在库的低分拒识"
+  }
+ },
+ "augment": {
+  "stage": {
+   "box": [
+    764,
+    6,
+    56,
+    23
+   ],
+   "type": "stage"
+  },
+  "health": {
+   "box": [
+    1660,
+    154,
+    256,
+    653
+   ],
+   "type": "health"
+  },
+  "augment_1": {
+   "box": [
+    430,
+    520,
+    241,
+    42
+   ],
+   "type": "augment"
+  },
+  "augment_2": {
+   "box": [
+    832,
+    521,
+    252,
+    43
+   ],
+   "type": "augment"
+  },
+  "augment_3": {
+   "box": [
+    1235,
+    515,
+    268,
+    51
+   ],
+   "type": "augment"
+  }
+ },
+ "enemy": {
+  "stage": {
+   "box": [
+    764,
+    6,
+    56,
+    23
+   ],
+   "type": "stage"
+  },
+  "health": {
+   "box": [
+    1660,
+    154,
+    256,
+    653
+   ],
+   "type": "enemy_health"
+  }
+ }
+}

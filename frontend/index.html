@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-zh="TFT 助手" data-en="TFT Copilot">TFT 助手</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="app">
+  <!-- 左: 局面输入 -->
+  <div id="input-pane">
+    <div class="pane-head">
+      <b data-zh="局面输入" data-en="Board Input">局面输入</b>
+      <span id="data-version"></span>
+      <select id="rec-mode" data-zh-title="截图类型" data-en-title="Screenshot type" title="截图类型">
+        <option value="ally" data-zh="我方棋盘" data-en="My board">我方棋盘</option>
+        <option value="augment" data-zh="选海克斯" data-en="Augment pick">选海克斯</option>
+        <option value="enemy" data-zh="敌方棋盘" data-en="Enemy board">敌方棋盘</option>
+      </select>
+      <button id="btn-recognize" data-zh-title="上传1920×1080游戏截图自动识别局面" data-en-title="Upload a 1920x1080 game screenshot to auto-recognize the board" title="上传1920×1080游戏截图自动识别局面" data-zh="📷 截图识别" data-en="📷 Recognize">📷 截图识别</button>
+      <button id="btn-vcfg" data-zh-title="设置视觉服务地址/密钥" data-en-title="Configure the vision service URL/API key" title="设置视觉服务地址/密钥">⚙</button>
+      <input id="rec-file" type="file" accept="image/png,image/jpeg" hidden>
+      <button id="btn-new-game" class="warn" data-zh="新开一局" data-en="New game">新开一局</button>
+      <button id="btn-lang" data-zh-title="Switch language / 切换语言" data-en-title="Switch language / 切换语言" title="Switch language / 切换语言">EN</button>
+    </div>
+
+    <section id="sec-status">
+      <div class="sec-title" data-zh="状态" data-en="Status">状态</div>
+      <div class="status-bar">
+        <label><span data-zh="阶段" data-en="Stage">阶段</span> <input id="st-stage" placeholder="3-2" size="4"></label>
+        <label><span data-zh="等级" data-en="Level">等级</span> <input id="st-level" type="number" min="1" max="10"></label>
+        <label><span data-zh="金币" data-en="Gold">金币</span> <input id="st-gold" type="number" min="0"></label>
+        <label><span data-zh="血量" data-en="HP">血量</span> <input id="st-hp" type="number" min="0" max="100"></label>
+        <label><span data-zh="连胜/败" data-en="Streak">连胜/败</span> <input id="st-streak" placeholder="W3 / L2" size="5"></label>
+      </div>
+    </section>
+
+    <section id="sec-units">
+      <div class="sec-title"><span data-zh="我的棋子" data-en="My units">我的棋子</span> <small data-zh="点星级切换1/2/3星, 点⚔加装备, 点格子摆位置" data-en="Click the stars to cycle 1/2/3★, ⚔ to equip items, a cell to place">点星级切换1/2/3星, 点⚔加装备, 点格子摆位置</small></div>
+      <div class="search-row"><input id="unit-search" data-zh-ph="搜棋子 (中文/拼音/首字母)" data-en-ph="Search units" placeholder="搜棋子 (中文/拼音/首字母)"><div class="suggest" id="unit-suggest"></div></div>
+      <div id="unit-list"></div>
+      <div class="grid-wrap">
+        <div class="grid-label" data-zh="我方棋盘 (上=前排)" data-en="My board (top = front row)">我方棋盘 (上=前排)</div>
+        <div class="hexgrid" id="my-grid"></div>
+      </div>
+    </section>
+
+    <section id="sec-items">
+      <div class="sec-title"><span data-zh="持有的装备/纹章" data-en="Held items / emblems">持有的装备/纹章</span> <small data-zh="(库存+已装备; 右侧下拉改归属, 装到某棋子上)" data-en="(inventory + equipped; use the dropdown to reassign to a unit)">(库存+已装备; 右侧下拉改归属, 装到某棋子上)</small></div>
+      <div class="tabs" id="item-tabs">
+        <button data-cat="component" class="active" data-zh="散件" data-en="Components">散件</button>
+        <button data-cat="craftable" data-zh="成装" data-en="Completed">成装</button>
+        <button data-cat="artifact" data-zh="神器" data-en="Artifacts">神器</button>
+        <button data-cat="support" data-zh="辅助装" data-en="Support">辅助装</button>
+        <button data-cat="radiant" data-zh="光明装" data-en="Radiant">光明装</button>
+        <button data-cat="emblem" data-zh="纹章" data-en="Emblems">纹章</button>
+      </div>
+      <div class="search-row"><input id="item-search" data-zh-ph="搜装备/纹章" data-en-ph="Search items/emblems" placeholder="搜装备/纹章"><div class="suggest" id="item-suggest"></div></div>
+      <div id="item-pool" class="chip-box"></div>
+    </section>
+
+    <section id="sec-augments">
+      <div class="sec-title" data-zh="海克斯" data-en="Augments">海克斯</div>
+      <div class="search-row"><input id="aug-search" data-zh-ph="搜海克斯, 回车加入已选" data-en-ph="Search augments, Enter to add to Selected" placeholder="搜海克斯, 回车加入已选"><div class="suggest" id="aug-suggest"></div></div>
+      <div class="sub" data-zh="已选:" data-en="Selected:">已选:</div><div id="aug-owned" class="chip-box"></div>
+      <div class="sub"><span data-zh="待选三选一" data-en="Pending pick-one-of-3">待选三选一</span> <small data-zh="(点搜索结果时按住 Shift 加到这里, 或点条目右侧 ? )" data-en="(Shift-click a search result, or click the ? next to an entry)">(点搜索结果时按住 Shift 加到这里, 或点条目右侧 ? )</small>:</div>
+      <div id="aug-pending" class="chip-box"></div>
+    </section>
+
+    <section id="sec-opponent">
+      <div class="sec-title"><label><input type="checkbox" id="opp-toggle"> <span data-zh="对手信息 (决赛圈针对)" data-en="Opponent info (for late-game targeting)">对手信息 (决赛圈针对)</span></label></div>
+      <div id="opp-area" style="display:none">
+        <div class="search-row"><input id="opp-search" data-zh-ph="搜对手棋子" data-en-ph="Search opponent's units" placeholder="搜对手棋子"><div class="suggest" id="opp-suggest"></div></div>
+        <div id="opp-list"></div>
+        <div class="grid-wrap">
+          <div class="grid-label" data-zh="对手棋盘 (上=对手前排, 和我方相对)" data-en="Opponent board (top = their front row, mirrored)">对手棋盘 (上=对手前排, 和我方相对)</div>
+          <div class="hexgrid" id="opp-grid"></div>
+        </div>
+        <input id="opp-note" data-zh-ph="对手备注: 阵容/装备/海克斯..." data-en-ph="Opponent notes: comp/items/augments..." placeholder="对手备注: 阵容/装备/海克斯...">
+      </div>
+    </section>
+
+    <section id="sec-note">
+      <input id="free-note" data-zh-ph="其他备注 (选秀在即/主C被抢/想玩什么...)" data-en-ph="Other notes (carousel coming up, my carry got taken, what I want to play...)" placeholder="其他备注 (选秀在即/主C被抢/想玩什么...)">
+    </section>
+  </div>
+
+  <!-- 右: 对话 -->
+  <div id="chat-pane">
+    <div class="pane-head">
+      <b data-zh="教练" data-en="Coach">教练</b>
+      <label class="deep-toggle"><input type="checkbox" id="deep-mode"> <span data-zh="深度思考" data-en="Deep think">深度思考</span></label>
+      <button id="btn-api" style="display:none" data-zh-title="配置你自己的 API Key" data-en-title="Configure your own API key" title="配置你自己的 API Key">API</button>
+      <span id="sess-label"></span>
+    </div>
+    <div id="api-panel" style="display:none">
+      <select id="api-provider"></select>
+      <select id="api-model"></select>
+      <input id="api-key-input" type="password" data-zh-ph="API Key (可选; 只存你自己的浏览器)" data-en-ph="API key (optional; stored only in your browser)" placeholder="API Key (可选; 只存你自己的浏览器)">
+      <button id="api-save" data-zh="保存" data-en="Save">保存</button>
+      <button id="api-clear" data-zh="清除" data-en="Clear">清除</button>
+      <span id="api-status"></span>
+    </div>
+    <div id="chat-log"></div>
+    <div id="target-board" style="display:none">
+      <div class="sec-title"><span data-zh="目标阵容板" data-en="Target comp board">目标阵容板</span>
+        <span>
+          <button id="tb-copy" data-zh-title="复制阵容码, 游戏内粘贴导入" data-en-title="Copy the team code to import in-game" title="复制阵容码, 游戏内粘贴导入" style="display:none" data-zh="📋 阵容码" data-en="📋 Team code">📋 阵容码</button>
+          <button id="tb-close">×</button>
+        </span>
+      </div>
+      <div id="tb-comp"></div>
+      <div id="tb-traits"></div>
+      <div class="hexgrid mini" id="tb-grid"></div>
+    </div>
+    <div id="quick-actions">
+      <button data-action="recommend" data-zh="推荐阵容" data-en="Recommend comp">推荐阵容</button>
+      <button data-action="augment" data-zh="海克斯三选一" data-en="Augment pick">海克斯三选一</button>
+      <button data-action="roll" data-zh="D牌还是存钱" data-en="Roll or save?">D牌还是存钱</button>
+      <button data-action="position" data-zh="站位建议" data-en="Positioning">站位建议</button>
+      <button data-action="counter" data-zh="针对对手" data-en="Counter opponent">针对对手</button>
+      <button data-action="transition" data-zh="要不要转型" data-en="Should I transition?">要不要转型</button>
+    </div>
+    <div id="chat-input-row">
+      <textarea id="chat-input" rows="2" data-zh-ph="追问... (Ctrl+Enter 发送, 会带上当前局面)" data-en-ph="Ask a follow-up... (Ctrl+Enter to send, includes current board)" placeholder="追问... (Ctrl+Enter 发送, 会带上当前局面)"></textarea>
+      <button id="btn-send" data-zh="发送" data-en="Send">发送</button>
+    </div>
+  </div>
+</div>
+<script src="/static/i18n.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

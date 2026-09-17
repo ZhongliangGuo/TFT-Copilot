@@ -1,0 +1,25 @@
+# secrets
+.env
+
+# model weights (distributed as a GitHub Release asset, see vision/onnx/README.md)
+vision/onnx/*.onnx
+
+# runtime data
+data/sessions/
+service_config.json
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# packaging staging area used to prep this release (not part of the repo)
+_release_assets/

@@ -1,0 +1,22 @@
+{
+  "id": "s18-equipment-v5",
+  "sourceResolution": [
+    1920,
+    1080
+  ],
+  "greenBarRelativeFirstIcon": [
+    -5,
+    11
+  ],
+  "iconSize": 23,
+  "slotStride": 25,
+  "cropOffsetSize": [
+    -5,
+    11,
+    74,
+    34
+  ],
+  "rendererFrame": false,
+  "nativeSpecialItemArtPreserved": true,
+  "measurement": "24 confident native-template matches in 12 supplied screenshots"
+}
