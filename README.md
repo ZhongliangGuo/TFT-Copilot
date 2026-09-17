@@ -9,6 +9,18 @@ How it works: your current board state is fed to an agent, which combines it wit
 1. **Manually** — click through the left panel (units / items / augments / status...).
 2. **Screenshot recognition** — upload or `Ctrl+V` paste a 1920x1080 in-game screenshot; a local vision service turns it into structured board state and fills it in for you.
 
+## Screenshots
+
+| Recognizing your board | Recognizing the opponent's board | Recognizing an augment pick |
+|---|---|---|
+| ![my board recognized](docs/screenshots/recognize-my-board.jpg) | ![enemy board recognized](docs/screenshots/recognize-enemy-board.jpg) | ![augments recognized](docs/screenshots/recognize-augments.jpg) |
+
+The three screenshots above are from [`examples/`](examples/) — see "Try it with the example screenshots" below. Note the opponent board has no item icons: that's deliberate, not a bug (see the Design philosophy section and `known_issues.md`).
+
+![agent recommendation](docs/screenshots/chat-recommend.jpg)
+
+The agent's recommendation, with its tool calls (🔍 查询/核验阵容) visible above the target comp board.
+
 ---
 
 ## What's in this repository
@@ -50,6 +62,10 @@ The core bet behind this project: an agent is great at judgment, language, and a
 - **`lookup_details`**: forces the agent to pull this season's actual numbers (stats, ability text, item composition) from the data pack instead of recalling them from pretraining, which goes stale the moment the game patches.
 
 The general shape: let the agent reason and communicate, but never let it be the source of truth for anything countable or lookup-able. If you extend this project with mechanics that need exact verification, this tool-calling + server-side re-check pattern (see `TOOL_HANDLERS` in `backend/app.py`) is where to hook in.
+
+![deterministic trait verification](docs/screenshots/chat-trait-verify.jpg)
+
+`verify_comp`'s actual output for a real recommendation: every trait's exact breakpoint, plus the positioning board.
 
 ---
 

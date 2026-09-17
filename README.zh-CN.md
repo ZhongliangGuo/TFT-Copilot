@@ -9,6 +9,18 @@
 1. **手动**：网页左栏点选（棋子 / 装备 / 海克斯 / 状态 …）；
 2. **截图自动识别**：📷 上传或 `Ctrl+V` 粘贴一张 1920×1080 游戏截图，本地视觉服务识别成结构化局面，回填到界面。
 
+## 截图
+
+| 识别我方棋盘 | 识别对手棋盘 | 识别海克斯 |
+|---|---|---|
+| ![识别我方棋盘](docs/screenshots/recognize-my-board.jpg) | ![识别对手棋盘](docs/screenshots/recognize-enemy-board.jpg) | ![识别海克斯](docs/screenshots/recognize-augments.jpg) |
+
+上面三张截图用的就是 [`examples/`](examples/) 里的示例图（见下面"用示例截图试试"）。注意对手棋盘上没有装备图标——这是故意的，不是 bug（见"设计理念"一节和 `known_issues.md`）。
+
+![agent 给出的推荐](docs/screenshots/chat-recommend.jpg)
+
+Agent 的推荐，上面能看到它调用的工具（🔍 查询/核验阵容）和目标阵容板。
+
 ---
 
 ## 这个仓库里有什么
@@ -50,6 +62,10 @@
 - **`lookup_details`**：强制 agent 从数据包里查这个赛季的真实数值（属性、技能文字、装备合成），而不是凭预训练记忆去编——那些记忆一旦游戏更新就过期了。
 
 大致的设计原则是：让 agent 负责推理和表达，但任何"能数清楚"或"能查到"的东西都不能只靠它自己说了算。如果你要给这个项目加新机制、需要精确核验，`backend/app.py` 里的 `TOOL_HANDLERS` 这套"工具调用 + 服务端再核验"的模式就是该接进去的地方。
+
+![确定性羁绊核验](docs/screenshots/chat-trait-verify.jpg)
+
+`verify_comp` 对一次真实推荐的实际输出：每个羁绊精确到档位，外加站位板。
 
 ---
 
