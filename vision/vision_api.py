@@ -19,6 +19,7 @@ import json
 import os
 import sys
 import tempfile
+import threading
 from pathlib import Path
 
 from fastapi import Body, FastAPI, File, Form, Header, HTTPException, UploadFile
@@ -33,6 +34,37 @@ from recognize import Recognizer
 app = FastAPI(title="TFT Copilot Vision API")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 REC = Recognizer()   # loaded once per process (models stay warm)
+
+
+def _warmup():
+    """后台预热: 预载三个子模型 (RapidOCR / 棋盘onnx / 备战席onnx+参考缓存),
+    并用样例截图各跑一遍真实推理 (onnx 首次推理有图优化/线程池初始化开销,
+    实测冷启动首请求 ally 要约 27s)。避免首个识别请求支付这部分成本。"""
+    try:
+        REC.hud, REC.board, REC.bench
+        import numpy as np
+        examples = HERE.parent / "examples"
+        shots = {"ally": examples / "my_board.png",
+                 "enemy": examples / "enemy_board.png",
+                 "augment": examples / "augments.png"}
+        for mode, path in shots.items():
+            try:
+                if path.exists():
+                    REC.recognize(str(path), mode)
+                elif mode == "ally":
+                    # 样例不在(部署裁剪): 合成全黑图至少把各 onnx 会话首次推理跑掉
+                    black = np.zeros((1080, 1920, 3), np.uint8)
+                    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
+                        Image.fromarray(black).save(f.name)
+                        REC.recognize(f.name, mode)
+                        os.unlink(f.name)
+            except Exception:
+                pass    # 单条预热失败不影响服务
+    except Exception:
+        pass
+
+
+threading.Thread(target=_warmup, daemon=True).start()
 
 # Optional auth: set VISION_API_KEY to require a matching X-API-Key header
 # (useful if you expose this service beyond localhost).

@@ -44,20 +44,41 @@ class BenchMatcher:
         cons = sorted(glob.glob(str(HERE / "ref_consumables" / "*.png")))
         self.ref_names = [Path(p).stem for p in refs] + [Path(p).stem for p in cons]
         self.is_consumable = [False] * len(refs) + [True] * len(cons)
-        embs = [self._emb(np.array(Image.open(p).convert("RGB").resize((32, 32)))) for p in refs + cons]
-        e = np.stack(embs)
-        self.ref_emb = e / np.linalg.norm(e, axis=1, keepdims=True)
+        # 参考 embedding 缓存: 逐张推理 137+ 张参考图要 4~9s, 命中缓存后 <0.1s
+        cache = REF_DIR.parent / "ref_emb_cache.npz"
+        self.ref_emb = None
+        if cache.exists():
+            try:
+                z = np.load(cache)
+                if list(z["names"]) == self.ref_names and len(z["emb"]) == len(self.ref_names):
+                    self.ref_emb = z["emb"]
+            except Exception:
+                self.ref_emb = None
+        if self.ref_emb is None:
+            embs = self._embs([np.array(Image.open(p).convert("RGB").resize((32, 32)))
+                               for p in refs + cons])
+            self.ref_emb = embs / np.linalg.norm(embs, axis=1, keepdims=True)
+            try:
+                np.savez(cache, names=np.array(self.ref_names), emb=self.ref_emb)
+            except Exception:
+                pass  # 缓存写失败不影响功能
         self.id2cn = self._name_map()
 
     def _name_map(self):
         from item_names import build_item_cn
         return build_item_cn(ROOT)
 
+    def _embs(self, rgb_list):
+        """批量 embedding: 组批一次 onnx 推理, 返回 [N,512]。"""
+        xs = []
+        for rgb in rgb_list:
+            x = np.asarray(Image.fromarray(rgb), np.float32).transpose(2, 0, 1) / 255.0
+            x = resize_chw(x, [64, 64])
+            xs.append((x - self.mean) / self.std)
+        return self.model.run(None, {"input": np.stack(xs).astype(np.float32)})[0]
+
     def _emb(self, rgb):
-        x = np.asarray(Image.fromarray(rgb), np.float32).transpose(2, 0, 1) / 255.0
-        x = resize_chw(x, [64, 64])
-        x = (x - self.mean) / self.std
-        return self.model.run(None, {"input": x[None].astype(np.float32)})[0][0]
+        return self._embs([rgb])[0]
 
     def _slot_box(self, col, row):
         ox, oy = GRID["origin"]; s = GRID["slot"]; p = GRID["pitch"]
@@ -67,7 +88,6 @@ class BenchMatcher:
         img = Image.open(image_path).convert("RGB")
         if img.size != (1920, 1080):
             raise ValueError(f"需要 1920x1080, 实际 {img.size}")
-        out = []
         pad = GRID["inner_pad"]
 
         def occ(col, row):
@@ -77,21 +97,28 @@ class BenchMatcher:
         # 第二列只在第一列 10 格全满时才存在; 否则不扫(避免蹭到旁边羁绊六边形, 误配成转职纹章)
         col0_full = all(occ(0, r) >= OCC_MIN for r in range(GRID["rows"]))
         cols = [0, 1] if col0_full else [0]
+        pending = []
         for col in cols:
             for row in range(GRID["rows"]):
-                x, y, w, h = self._slot_box(col, row)
                 if occ(col, row) < OCC_MIN:
                     continue  # 空槽
+                x, y, w, h = self._slot_box(col, row)
                 inner = np.array(img.crop((x + pad, y + pad, x + w - pad, y + h - pad)))
-                e = self._emb(inner); e = e / np.linalg.norm(e)
-                s = self.ref_emb @ e
-                j = int(s.argmax()); conf = round(float(s[j]), 3)
-                iid = self.ref_names[j]; consumable = self.is_consumable[j]
-                ok = conf >= conf_min
-                out.append({"col": col, "row": row, "conf": conf,
-                            "consumable": bool(consumable and ok),   # 重铸/拆卸等: 识别到但主功能可跳过
-                            "item_id": (None if consumable else iid) if ok else None,
-                            "name": (iid if consumable else self.id2cn.get(iid, iid)) if ok else "unknown"})
+                pending.append((col, row, inner))
+        if not pending:
+            return []
+        embs = self._embs([p[2] for p in pending])          # 组批一次推理
+        embs = embs / np.linalg.norm(embs, axis=1, keepdims=True)
+        sims = self.ref_emb @ embs.T
+        out = []
+        for (col, row, _), s in zip(pending, sims.T):
+            j = int(s.argmax()); conf = round(float(s[j]), 3)
+            iid = self.ref_names[j]; consumable = self.is_consumable[j]
+            ok = conf >= conf_min
+            out.append({"col": col, "row": row, "conf": conf,
+                        "consumable": bool(consumable and ok),   # 重铸/拆卸等: 识别到但主功能可跳过
+                        "item_id": (None if consumable else iid) if ok else None,
+                        "name": (iid if consumable else self.id2cn.get(iid, iid)) if ok else "unknown"})
         return out
 
 

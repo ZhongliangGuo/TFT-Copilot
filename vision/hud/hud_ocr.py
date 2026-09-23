@@ -33,7 +33,7 @@ ROOT = HERE.parent.parent
 class HudOCR:
     def __init__(self):
         from rapidocr_onnxruntime import RapidOCR
-        self.ocr = RapidOCR()
+        self.ocr = RapidOCR()   # det 默认 min-side 736 上采样: 小字召回需要, 不能省
         self.regions = json.loads((HERE / "regions.json").read_text(encoding="utf-8"))
         # 词表
         ch = json.loads((ROOT / "data" / "packs" / "set18" / "champions.json").read_text(encoding="utf-8"))
@@ -177,40 +177,109 @@ class HudOCR:
         r, g, b = bright.mean(0)
         return ("W" if r > b + 15 else "L") + num
 
+    def _health_cands(self, crop):
+        """血量竖条 -> det-only 候选框 [(字高, x0, y0, x1, y1)], 不 rec。
+        过滤 高8~40、宽高比0.8~4、x0>=100(数字列, 排除左侧名字/头像区的装饰框),
+        并跳过剑标配对框。rec 有 ~0.5s/图的固定开销, 由调用方按优先级惰性 rec。"""
+        res, _ = self.ocr(crop, use_rec=False, use_cls=False)   # det only
+        cands = []
+        for pts in (res or []):
+            xs = [q[0] for q in pts]
+            ys = [q[1] for q in pts]
+            x0, x1 = min(xs), max(xs)
+            y0, y1 = min(ys), max(ys)
+            bh, bw = y1 - y0, x1 - x0
+            if not (8 <= bh <= 40 and 0.8 <= bw / max(bh, 1) <= 4 and x0 >= 100):
+                continue                                        # 剑标/名字/装饰框, 不 rec
+            cands.append((bh, bw, x0, y0, x1, y1))
+        # 剑标 = 同行药丸内数字框正下方的近方形小框; 有配对数字框时跳过, 省 rec
+        def is_icon(b):
+            bh, bw, x0, y0, x1, y1 = b
+            if not (bh < 18 and 0.7 <= bw / max(bh, 1) < 1.2):
+                return False
+            cx = (x0 + x1) / 2
+            return any(o is not b and abs((o[2] + o[4]) / 2 - cx) < 12
+                       and 0 < y0 - o[5] < 30 for o in cands)
+        return [b for b in cands if not is_icon(b)]
+
+    def _rec_digits(self, crop, b):
+        """rec 单个候选框, 纯数字(<=3位)才返回 int, 否则 None。"""
+        _bh, _bw, x0, y0, x1, y1 = b
+        c = crop[max(int(y0) - 3, 0):int(y1) + 3, max(int(x0) - 3, 0):int(x1) + 3]
+        txt = self._rec(self._up(c, 3))
+        digits = re.sub(r"\D", "", txt)
+        if digits and digits == txt.strip().replace(" ", "") and len(digits) <= 3:
+            return int(digits)
+        return None
+
+    def _first_digits(self, crop, cands):
+        """按给定顺序惰性 rec, 返回 (值, 对应框高); 全不纯返回 (None, None)。"""
+        for b in cands:
+            v = self._rec_digits(crop, b)
+            if v is not None:
+                return v, b[0]
+        return None, None
+
     def _enemy_health(self, img, box):
         """被观察敌方的血量(看敌方棋盘时)。据观察: 使用助手的玩家自己字号最大;
         其余敌方字号相同, 但"被观察的那个"整体向左偏移。故: 排除最大(=玩家自己),
         剩下敌方里取最靠左(x 最小)的数字。
         ⚠ 首版启发, 阈值 0.9 和"最左=被观察者"需真敌方截图校准。"""
         crop = self._crop(img, box)
-        res, _ = self.ocr(crop)  # det on
-        dets = []
-        for pts, txt, cf in (res or []):
-            digits = re.sub(r"\D", "", txt)
-            if digits and digits == txt.strip().replace(" ", ""):
-                h = abs(pts[2][1] - pts[0][1])
-                x = min(p[0] for p in pts)
-                dets.append((h, x, int(digits)))
-        if not dets:
+        cands = self._health_cands(crop)
+        if not cands:
             return None
-        maxh = max(d[0] for d in dets)
-        enemies = [d for d in dets if d[0] < maxh * 0.9]   # 明显小于最大字号 = 敌方
-        if not enemies:
+        # 自己 = 字高降序第一个纯数字框
+        own_v, own_h = self._first_digits(crop, sorted(cands, key=lambda b: -b[0]))
+        if own_h is None:
             return None
-        return min(enemies, key=lambda d: d[1])[2]          # 最靠左 = 被观察的敌方
+        # 敌方 = 明显小于自己字号的框里, x 升序第一个纯数字
+        enemies = [b for b in cands if b[0] < own_h * 0.9]
+        v, _ = self._first_digits(crop, sorted(enemies, key=lambda b: b[2]))
+        return v
 
     def _health(self, img, box):
-        """右侧竖条: 检测所有文本, 取纯数字里框最高的(自己=放大头像)。"""
+        """右侧竖条: 取纯数字里框最高的(自己=放大头像)。字高降序惰性 rec。"""
         crop = self._crop(img, box)
-        res, _ = self.ocr(crop)  # det on
-        best = None
-        for pts, txt, cf in (res or []):
-            digits = re.sub(r"\D", "", txt)
-            if digits and digits == txt.strip().replace(" ", ""):  # 纯数字
-                h = abs(pts[2][1] - pts[0][1])
-                if best is None or h > best[0]:
-                    best = (h, int(digits))
-        return best[1] if best else None
+        v, _ = self._first_digits(crop, sorted(self._health_cands(crop),
+                                               key=lambda b: -b[0]))
+        return v
+
+    def _post_field(self, t, raw, img, spec):
+        """批量 rec 之后的字段后处理 (与 _parse_field 各分支逻辑一致)。"""
+        if t == "stage":
+            m = re.search(r"(\d)\s*[-/]\s*(\d)", raw)
+            return f"{m.group(1)}-{m.group(2)}" if m else None
+        if t == "level":
+            d = re.sub(r"\D", "", raw)
+            return int(d) if d else None
+        if t == "gold":
+            d = re.sub(r"\D", "", raw)
+            return int(d) if d else 0            # 读不到就按没钱算=0
+        if t == "frac":                          # 经验 a/b
+            m = re.search(r"(\d+)\s*/\s*(\d+)", raw)
+            return [int(m.group(1)), int(m.group(2))] if m else None
+        if t == "champion":
+            return self._fuzzy(raw, self.champion_names) or None
+        if t == "champion_or_sprite":     # shop 第5格: 棋子 或 自然仙灵
+            if not raw.strip():
+                return None
+            cn, cr = self._best(raw, self.champion_names)
+            sn, sr = self._best(raw, self.sprite_names)
+            return ({"name": sn, "kind": "sprite"} if sr >= cr
+                    else {"name": cn, "kind": "champion"})
+        if t == "streak":
+            num = re.sub(r"\D", "", raw)
+            if not num:
+                return None
+            x, y, w, h = spec["box"]
+            flame = np.array(img.crop((x, y, x + w // 2, y + h))).reshape(-1, 3).astype(float)
+            bright = flame[flame.max(1) > 90]        # 取亮的火焰像素
+            if len(bright) == 0:
+                return None
+            r, g, b = bright.mean(0)
+            return ("W" if r > b + 15 else "L") + num
+        return None
 
     # ---- 入口 ----
     def parse(self, image_path, mode="ally"):
@@ -218,8 +287,25 @@ class HudOCR:
         if img.size != (1920, 1080):
             raise ValueError(f"需要 1920x1080 截图, 实际 {img.size}")
         out = {"mode": mode}
+        # 简单 rec 字段组批一次 text_rec (省每字段一次流水线调用的固定开销);
+        # 复杂字段(血量/敌方血量/海克斯)仍走 _parse_field 单独处理
+        batch = []   # (name, spec, rec输入图)
         for name, spec in self.regions[mode].items():
-            out[name] = self._parse_field(img, name, spec)
+            t = spec["type"]
+            if t in ("stage", "level", "gold", "frac"):
+                batch.append((name, spec, self._up(self._crop(img, spec["box"]))))
+            elif t in ("champion", "champion_or_sprite"):
+                batch.append((name, spec, self._crop(img, spec["box"])))
+            elif t == "streak":
+                x, y, w, h = spec["box"]
+                num_crop = np.array(img.crop((x + w // 2 - 4, y, x + w, y + h)))
+                batch.append((name, spec, self._up(num_crop)))
+            else:
+                out[name] = self._parse_field(img, name, spec)
+        if batch:
+            recs, _ = self.ocr.text_rec([b[2] for b in batch])
+            for (name, spec, _), (raw, _cf) in zip(batch, recs):
+                out[name] = self._post_field(spec["type"], raw, img, spec)
         return out
 
 
