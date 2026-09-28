@@ -8,8 +8,16 @@
 chat 模式需先启动后端: .venv/Scripts/python -m uvicorn backend.app:app --port 8123
 
 不改生产代码: 运行时用计时代理包装 onnx session / OCR 函数。
+
+A/B 对比: 本脚本对**基线(6e14bd2)与优化后(perf/latency)两版 vision/ 都可用**
+(`git checkout <commit> -- vision/` 切版本后直接跑, 无需改脚本):
+- 星级血条定位: 优化后是 `board._star_locate`, 基线是 `board._star_stage` 三元组 → 自行分支
+- 预处理 `cv:preprocess (基线:37格裁图落盘)` 只在基线出现(优化后已内存化, 该行消失即为预期)
+- `[计数] RapidOCR rec 次数` 反映"减 rec 次数"的优化效果(基线 11~15/图, 优化后 1~2/图)
+注意: 各阶段耗时之和 ≈ 总耗时的差额 = 未单独归类的开销(如基线的裁图读回、图像解码)。
 """
 import argparse
+import functools
 import json
 import sys
 import time
@@ -31,9 +39,17 @@ EXAMPLES = [
 class Timer:
     def __init__(self):
         self.recs = []
+        self.counts = {}   # 调用计数(如 RapidOCR 的 rec 次数), 与耗时分开记
 
     def add(self, label, dt):
         self.recs.append((label, dt))
+
+    def bump(self, label, n=1):
+        self.counts[label] = self.counts.get(label, 0) + n
+
+    def reset(self):
+        self.recs.clear()
+        self.counts.clear()
 
     def summary(self, title):
         agg, order = {}, []
@@ -50,6 +66,8 @@ class Timer:
             total += t
             print(f"  {label:<30} {t * 1000:8.0f} ms  x{n}")
         print(f"  {'(以上合计)':<30} {total * 1000:8.0f} ms")
+        for label, n in self.counts.items():
+            print(f"  [计数] {label:<23} {n:8d}")
 
 
 class TimingSession:
@@ -65,6 +83,42 @@ class TimingSession:
         r = self._s.run(*a, **k)
         self._t.add(f"onnx:{self._name}", time.perf_counter() - t)
         return r
+
+
+class OcrCounter:
+    """RapidOCR 引擎代理: 统计 rec 实际执行次数(不改变行为)。
+    rec 是 OCR 侧的主要成本(每次 ~0.2~0.9s 固定开销), "减次数"是血量的优化点:
+    - 基线 `self.ocr(strip)` 一次调用里 det+rec 全跑 → 次数 = 检出的文本框数(11~15)
+    - 优化后 det-only 取候选框 + 按优先级惰性 `_rec` → 次数 = 1~2
+    耗时日志看不到次数, 故单独计数: rec-only 调用记 1 次, det+rec 记 box 数,
+    `text_rec([N])` 记 N 次, det-only(`use_rec=False`)不计。"""
+    def __init__(self, engine, timer):
+        self._e, self._t = engine, timer
+
+    def __getattr__(self, attr):
+        return getattr(self._e, attr)
+
+    def __call__(self, *a, **k):
+        r = self._e(*a, **k)
+        if k.get("use_rec", True):        # 未显式关掉 rec 时, rec 执行次数 = 检出框数
+            boxes = r[0] if isinstance(r, (tuple, list)) and r else None
+            self._t.bump("RapidOCR rec 次数", max(len(boxes), 1) if isinstance(boxes, list) else 1)
+        return r
+
+    def text_rec(self, imgs, *a, **k):
+        self._t.bump("RapidOCR rec 次数", len(imgs))
+        return self._e.text_rec(imgs, *a, **k)
+
+
+def _timed_call(timer, label, fn):
+    """把 fn 包成"计时后原样调用"的可调用对象(用于只出现在某一版代码里的函数)。"""
+    @functools.wraps(fn)
+    def wrapper(*a, **k):
+        t = time.perf_counter()
+        r = fn(*a, **k)
+        timer.add(label, time.perf_counter() - t)
+        return r
+    return wrapper
 
 
 def profile_vision():
@@ -86,6 +140,8 @@ def profile_vision():
     tm.summary("视觉模型懒加载 (每进程一次)")
 
     # 2) 包装计时
+    #    ⚠ 两版 vision/ 都支持: 优化后基线/优化后属性名不同(见各处 hasattr 分支),
+    #      切 commit 做 A/B 时本脚本无需改动、也不会因缺属性而崩。
     orig_field = hud._parse_field
     def timed_field(img, name, spec, _fn=orig_field):
         t = time.perf_counter()
@@ -93,17 +149,26 @@ def profile_vision():
         tm.add(f"ocr:{name}", time.perf_counter() - t)
         return r
     hud._parse_field = timed_field
+    hud.ocr = OcrCounter(hud.ocr, tm)
 
     board.id_s = TimingSession(board.id_s, "identity (37格批量)", tm)
     board.st_s = TimingSession(board.st_s, "stars (批量1次)", tm)
     board.eq_s = TimingSession(board.eq_s, "equipment (批量1次)", tm)
-    orig_star_locate = board._star_locate
-    def timed_star_locate(*a, _fn=orig_star_locate, **k):
+
+    def timed_star_locate(*a, _fn=None, **k):
         t = time.perf_counter()
         r = _fn(*a, **k)
         tm.add("cv:血条定位 detect_health_bars(星)", time.perf_counter() - t)
         return r
-    board._star_locate = timed_star_locate
+    if hasattr(board, "_star_locate"):          # 优化后: 单函数属性
+        board._star_locate = functools.partial(timed_star_locate, _fn=board._star_locate)
+    elif hasattr(board, "_star_stage"):         # 基线: (get_slots, locate, save_crops) 三元组
+        _gs, _locate, _save = board._star_stage
+        board._star_stage = (_gs, functools.partial(timed_star_locate, _fn=_locate), _save)
+
+    if hasattr(board, "_pre"):                  # 基线: 37 格裁图落盘(protocol preprocess); 优化后已内存化
+        board._pre = _timed_call(tm, "cv:preprocess (基线:37格裁图落盘)", board._pre)
+
     orig_eq_locate = board._eqv5.locate
     def timed_eq_locate(*a, _fn=orig_eq_locate, **k):
         t = time.perf_counter()
@@ -115,7 +180,7 @@ def profile_vision():
 
     # 3) 两轮: 冷 (onnx 首次推理含图优化) / 热
     for rnd in (1, 2):
-        tm.recs.clear()
+        tm.reset()
         for mode, img in EXAMPLES:
             t = time.perf_counter()
             out = rec.recognize(str(img), mode)

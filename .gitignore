@@ -8,6 +8,15 @@ vision/onnx/*.onnx
 data/sessions/
 service_config.json
 
+# local perf/regression artifacts (profile logs, recognize --json dumps, curl responses)
+scratch/
+
+# local agent workspace data (session memory etc., machine-specific)
+.workbuddy/
+
+# local agent rule file (IDE-level, kept out of the repo on purpose)
+AGENTS.md
+
 # python
 __pycache__/
 *.pyc

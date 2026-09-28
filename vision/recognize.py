@@ -10,7 +10,7 @@
 全部本地: 棋子/星级/装备 = 训练的CV模型; 文本数字 = RapidOCR; 备战装备 = embedding匹配。
 
 用法:
-  python vision/recognize.py <截图> [ally|augment] [--json out.json]
+  python vision/recognize.py <截图> [ally|enemy|augment] [--json out.json]
 或:
   from recognize import Recognizer
   Recognizer().recognize("shot.png", "ally")

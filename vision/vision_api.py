@@ -10,7 +10,8 @@ or:
   cd vision && uvicorn vision_api:app --port 8010
 
 Endpoints:
-  GET  /api/health
+  GET  /api/health      -> {"ok":true,"warm":bool,"warmup_ms":int|null}
+       warm=false 表示后台预热(见 _warmup)还没跑完, 此时发识别请求会与预热线程抢 CPU
   POST /api/recognize   multipart: image=<screenshot file>, mode=ally|enemy|augment
        -> {"mode","state","raw"}   state matches backend /api/chat's state structure
 """
@@ -20,6 +21,7 @@ import os
 import sys
 import tempfile
 import threading
+import time
 from pathlib import Path
 
 from fastapi import Body, FastAPI, File, Form, Header, HTTPException, UploadFile
@@ -39,7 +41,11 @@ REC = Recognizer()   # loaded once per process (models stay warm)
 def _warmup():
     """后台预热: 预载三个子模型 (RapidOCR / 棋盘onnx / 备战席onnx+参考缓存),
     并用样例截图各跑一遍真实推理 (onnx 首次推理有图优化/线程池初始化开销,
-    实测冷启动首请求 ally 要约 27s)。避免首个识别请求支付这部分成本。"""
+    实测冷启动首请求 ally 要约 27s)。避免首个识别请求支付这部分成本。
+
+    结束时置 WARM 标志: /api/health 的 warm 字段据此报"能否开始计时首请求"。
+    预热期间发来的请求会与预热线程抢 CPU, 测冷启动必须等 warm=true 再发。"""
+    t0 = time.perf_counter()
     try:
         REC.hud, REC.board, REC.bench
         import numpy as np
@@ -62,8 +68,13 @@ def _warmup():
                 pass    # 单条预热失败不影响服务
     except Exception:
         pass
+    finally:
+        WARMUP_MS["ms"] = round((time.perf_counter() - t0) * 1000)
+        WARM.set()
 
 
+WARM = threading.Event()        # 预热完成 (无论成功/失败, 结束即置位)
+WARMUP_MS = {}                  # {"ms": 预热总耗时}
 threading.Thread(target=_warmup, daemon=True).start()
 
 # Optional auth: set VISION_API_KEY to require a matching X-API-Key header
@@ -134,7 +145,8 @@ def to_state(rec: dict) -> dict:
 
 @app.get("/api/health")
 def health():
-    return {"ok": True}
+    """ok 恒真(进程存活); warm 表示后台预热是否已结束 —— 测冷启动耗时必须等 warm=true。"""
+    return {"ok": True, "warm": WARM.is_set(), "warmup_ms": WARMUP_MS.get("ms")}
 
 
 def _config_path():
