@@ -15,7 +15,6 @@
 import argparse
 import json
 import sys
-import tempfile
 from pathlib import Path
 
 import cv2
@@ -30,6 +29,11 @@ sys.path.insert(0, str(DATA / "protocol"))              # preprocess / hud_stage
 sys.path.insert(0, str(EQUIP / "protocol"))             # hud_equipment_v5
 sys.path.insert(0, str(VIS))                            # onnx_backend
 sys.path.insert(0, str(VIS / "hud"))                    # item_names
+try:
+    from affinity import optimize_cpu_affinity
+    optimize_cpu_affinity()
+except Exception:
+    pass
 from onnx_backend import load_session, default_providers, resize_chw, gaussian_anchor, softmax, META
 
 # 变身/召唤形态在 champions.json 无独立 apiName, 映射到本体/召唤棋子中文名(与主功能实体名一致)
@@ -61,16 +65,15 @@ class BoardRecognizer:
         self.id_meta, self.st_meta, self.eq_meta = META["identity"], META["stars"], META["equipment"]
         self.eq_names = {int(k): v for k, v in self.eq_meta["names"].items()}
         self.api2cn, self.item2cn = name_maps()
-        from preprocess import preprocess
-        from hud_stage import get_slots, locate, save_crops
+        from hud_stage import get_slots, locate
         import hud_equipment_v5 as eqv5
-        self._pre = preprocess
-        self._star_stage = (get_slots, locate, save_crops)
-        self._eqv5 = eqv5
+        self._get_slots = get_slots      # 阶段1 槽位几何 (与 preprocess 同一 regions.json)
+        self._star_locate = locate       # 阶段2 血条定位(星级)
+        self._eqv5 = eqv5                # 阶段2 血条定位(装备)
 
-    # ---- 预处理 (与训练一致, 纯 numpy) ----
-    def _id_input(self, crop_path, tp):
-        img = Image.open(crop_path).convert("RGB")
+    # ---- 预处理 (与训练一致, 纯 numpy; 全程内存, 不落盘) ----
+    def _id_input(self, img, tp):
+        img = img.convert("RGB")
         w, h = img.size
         rgb = np.asarray(img, np.float32).transpose(2, 0, 1) / 255.0
         x = np.concatenate([rgb, gaussian_anchor(w, h, *tp)[None]], 0)
@@ -80,44 +83,59 @@ class BoardRecognizer:
         x[:3] = (x[:3] - mean) / std
         return x.astype(np.float32)
 
-    def _star_input(self, crop_path):
-        img = Image.open(crop_path).convert("RGB")
+    def _star_input(self, img):
+        img = img.convert("RGB")
         x = np.asarray(img, np.float32).transpose(2, 0, 1) / 255.0
         x = resize_chw(x, self.st_meta["size"])
         mean = np.array(self.st_meta["mean"], np.float32)[:, None, None]
         std = np.array(self.st_meta["std"], np.float32)[:, None, None]
         return ((x - mean) / std).astype(np.float32)
 
-    def _eq_letterbox(self, path):
-        """复现 ultralytics letterbox: 等比缩放到 imgsz 见方, 114 填充, BGR->RGB, /255。"""
-        im = cv2.imread(str(path))
-        h0, w0 = im.shape[:2]
+    def _eq_letterbox(self, rgb):
+        """复现 ultralytics letterbox: 等比缩放到 imgsz 见方, 114 填充, /255。
+        入参为 RGB ndarray (原实现读 cv2 BGR 再翻转, 内存化后省去)。"""
+        h0, w0 = rgb.shape[:2]
         s = self.eq_meta["imgsz"]
         r = min(s / h0, s / w0)
         nw, nh = round(w0 * r), round(h0 * r)
-        rs = cv2.resize(im, (nw, nh), interpolation=cv2.INTER_LINEAR)
+        rs = cv2.resize(rgb, (nw, nh), interpolation=cv2.INTER_LINEAR)
         canvas = np.full((s, s, 3), 114, np.uint8)
         dw, dh = (s - nw) // 2, (s - nh) // 2
         canvas[dh:dh + nh, dw:dw + nw] = rs
-        blob = canvas[:, :, ::-1].transpose(2, 0, 1)[None].astype(np.float32) / 255.0
+        blob = canvas.transpose(2, 0, 1)[None].astype(np.float32) / 255.0
         return np.ascontiguousarray(blob)
 
-    def _eq_detect(self, path, eqconf):
+    def _eq_post(self, out, eqconf):
         """onnx 输出 [300,6]=xyxy+conf+cls(NMS 已融进图)。取置信最高 top3, 按 x 从左到右排。"""
-        out = self.eq_s.run(None, {self.eq_s.get_inputs()[0].name: self._eq_letterbox(path)})[0][0]
         cand = [(float(c), self.eq_names[int(k)], float((x1 + x2) / 2))
                 for x1, y1, x2, y2, c, k in out if float(c) >= eqconf]
         cand = sorted(cand, key=lambda c: -c[0])[:3]
         return [(nm, round(cf, 3)) for cf, nm, _ in sorted(cand, key=lambda c: c[2])]
 
+    @staticmethod
+    def _ready_crop(img, slots, key, task):
+        """从阶段2 manifest 取 ready 区域的内存裁图 (替代 save_crops 落盘再读回)。"""
+        slot = slots.get(key, {})
+        region = slot.get("regions", {}).get(task, {})
+        if region.get("status") != "ready":
+            return None, region, slot
+        x, y, w, h = region["bbox"]
+        return img.crop((x, y, x + w, y + h)), region, slot
+
     def recognize(self, image_path, conf=0.5, eqconf=0.35, mode="ally"):
         """mode='ally' 己方棋盘(下半屏), 'enemy' 敌方棋盘(上半屏, 位置镜像但血条仍在棋子上方)。
         敌方几何用 regions.json 的 enemyCells; locate 硬编码"血条在棋子上方", 已适配敌方。"""
         img = Image.open(image_path).convert("RGB")
-        tmp = Path(tempfile.mkdtemp(prefix="tft_v3_"))
-        rows = self._pre(img, tmp, mode=mode)
+        slots = self._get_slots(mode)
+        # 阶段1: 按固定坐标在内存切 37 格 (几何与协议 preprocess 一致), 组批一次推理
+        rows = []
+        for slot in slots:
+            cx, cy = slot["center"]
+            x, y = round(cx - 90), round(cy - 165)
+            rows.append({"cell": slot["key"], "crop": img.crop((x, y, x + 180, y + 205)),
+                         "target_point": [cx - x, cy - y]})
         idc = self.id_meta["classes"]
-        batch = np.stack([self._id_input(tmp / r["image"], r["target_point"]) for r in rows])
+        batch = np.stack([self._id_input(r["crop"], r["target_point"]) for r in rows])
         prob = softmax(self.id_s.run(None, {"input": batch})[0])
         idx, confs = prob.argmax(1), prob.max(1)
 
@@ -132,35 +150,45 @@ class BoardRecognizer:
                                 "id_conf": round(pi, 3), "star": None, "star_conf": None,
                                 "items": [], "items_status": "resolved"}
 
-        get_slots, locate, save_crops = self._star_stage
-        hud_star = tmp / "hud_stars"
-        man_star = locate(img, get_slots(mode), occupied, mode=mode); save_crops(img, man_star, hud_star)
+        man_star = self._star_locate(img, slots, occupied, mode=mode)
         # 装备识别只对我方棋盘做: 敌方没有专门校准/验证过的装备栏识别(己方视角下固定位置的
         # 备战散装备栏在切到敌方视角时仍会留在屏幕同一位置, 容易被误当成敌方棋子的装备栏
         # 裁进来), 宁可敌方装备一律留空, 也不要输出不可靠的结果。
-        if mode == "ally":
-            hud_eq = tmp / "hud_eq"
-            man_eq = self._eqv5.locate(img, self._eqv5.get_slots(mode), occupied, mode=mode)
-            self._eqv5.save_crops(img, man_eq, hud_eq)
-        else:
-            hud_eq = None
-            man_eq = {"slots": {}}
+        man_eq = (self._eqv5.locate(img, self._eqv5.get_slots(mode), occupied, mode=mode)
+                  if mode == "ally" else {"slots": {}})
 
-        for key, e in units.items():
-            sr = man_star["slots"].get(key, {}).get("regions", {}).get("stars", {})
-            if sr.get("file"):
-                sp = softmax(self.st_s.run(None, {"input": self._star_input(hud_star / sr["file"])[None]})[0])[0]
-                e["star"], e["star_conf"] = int(sp.argmax()) + 1, round(float(sp.max()), 3)
-            if mode != "ally":
+        # 星级: 所有定位成功的格子组批, 一次推理
+        star_keys, star_imgs = [], []
+        for key in units:
+            crop, _, _ = self._ready_crop(img, man_star["slots"], key, "stars")
+            if crop is not None:
+                star_keys.append(key)
+                star_imgs.append(crop)
+        if star_imgs:
+            sp = softmax(self.st_s.run(
+                None, {"input": np.stack([self._star_input(im) for im in star_imgs])})[0])
+            for key, p in zip(star_keys, sp):
+                units[key]["star"], units[key]["star_conf"] = int(p.argmax()) + 1, round(float(p.max()), 3)
+
+        if mode != "ally":
+            for e in units.values():
                 e["items_status"] = "unresolved(enemy_item_recognition_not_supported)"
-                continue
-            eslot = man_eq["slots"].get(key, {})
-            er = eslot.get("regions", {}).get("equipment", {})
-            if er.get("file"):
-                for iid, cf in self._eq_detect(hud_eq / er["file"], eqconf):
-                    e["items"].append({"item_id": iid, "name": self.item2cn.get(iid, iid), "conf": cf})
+            return list(units.values())
+
+        # 装备: equipment.onnx 固定 batch=1, 逐棋子推理 (但仍全程内存, 不落盘)
+        eq_todo, unresolved = [], {}
+        for key in units:
+            crop, er, eslot = self._ready_crop(img, man_eq["slots"], key, "equipment")
+            if crop is not None:
+                eq_todo.append((key, self._eq_letterbox(np.asarray(crop))))
             else:
-                e["items_status"] = "unresolved(" + (er.get("status") or eslot.get("status", "no_healthbar")) + ")"
+                unresolved[key] = (er, eslot)
+        for key, blob in eq_todo:
+            out = self.eq_s.run(None, {self.eq_s.get_inputs()[0].name: blob})[0][0]
+            for iid, cf in self._eq_post(out, eqconf):
+                units[key]["items"].append({"item_id": iid, "name": self.item2cn.get(iid, iid), "conf": cf})
+        for key, (er, eslot) in unresolved.items():
+            units[key]["items_status"] = "unresolved(" + (er.get("status") or eslot.get("status", "no_healthbar")) + ")"
         return list(units.values())
 
 

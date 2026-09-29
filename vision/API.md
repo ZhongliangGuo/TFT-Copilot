@@ -30,7 +30,11 @@ Both have CORS enabled, so any web frontend can call them cross-origin.
 
 ## Vision API
 
-- `GET /api/health` -> `{ok:true}`
+- `GET /api/health` -> `{ok:true, warm:<bool>, warmup_ms:<int|null>}`
+  - `ok` is always true while the process is alive. `warm` turns true once the background warm-up
+    (preloading the three models and running each `examples/` sample through the full pipeline) has
+    finished; `warmup_ms` reports how long it took. A request sent while `warm=false` competes with
+    the warm-up thread for CPU, so latency measurements must wait for `warm=true`.
 - `POST /api/recognize` multipart: `image=<screenshot>`, `mode=ally|enemy|augment`
   - `ally` (your board): stage/level/gold/health + board (units/stars/items/positions) + shop (5 slots: units or portals) + unequipped bench items
   - `enemy` (opponent board): board (units/positions/stars visible from the front-facing camera; item recognition is not supported for the opponent's board — see `known_issues.md`)
