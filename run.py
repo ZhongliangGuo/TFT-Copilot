@@ -30,6 +30,11 @@ def serve(app, host, port):
 
 
 def main():
+    try:
+        from affinity import optimize_cpu_affinity
+        optimize_cpu_affinity(verbose=True)
+    except Exception:
+        pass
     from backend.app import app as backend_app
     import vision_api
 

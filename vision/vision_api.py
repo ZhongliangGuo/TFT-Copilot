@@ -31,6 +31,11 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+try:
+    from affinity import optimize_cpu_affinity
+    optimize_cpu_affinity()
+except Exception:
+    pass
 from recognize import Recognizer
 
 app = FastAPI(title="TFT Copilot Vision API")

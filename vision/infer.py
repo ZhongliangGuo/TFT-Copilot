@@ -29,6 +29,11 @@ sys.path.insert(0, str(DATA / "protocol"))              # preprocess / hud_stage
 sys.path.insert(0, str(EQUIP / "protocol"))             # hud_equipment_v5
 sys.path.insert(0, str(VIS))                            # onnx_backend
 sys.path.insert(0, str(VIS / "hud"))                    # item_names
+try:
+    from affinity import optimize_cpu_affinity
+    optimize_cpu_affinity()
+except Exception:
+    pass
 from onnx_backend import load_session, default_providers, resize_chw, gaussian_anchor, softmax, META
 
 # 变身/召唤形态在 champions.json 无独立 apiName, 映射到本体/召唤棋子中文名(与主功能实体名一致)
